@@ -32,8 +32,9 @@ public interface MovimientoDao {
     @Delete
     void delete(Movimiento movimiento);
 
-    @Query("DELETE FROM Movimiento")
-    void deleteAll();
+    @Query("SELECT SUM(valor) FROM Movimiento WHERE fecha = :fecha")
+    Double obtenerTotalPorFecha(String fecha);
+
 
     @Query("DELETE FROM Movimiento WHERE id = :id")
     void deleteById(int id);

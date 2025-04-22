@@ -1,5 +1,6 @@
 package com.tx
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,10 +24,19 @@ import java.util.concurrent.Executors
 
 
 class MainFragment : Fragment() {
-
     private var fechaJornada: String? = null
     private lateinit var tvUltimoMovimiento: TextView
     private lateinit var totalGeneralInfo: TextView
+
+    private lateinit var cronometroView: TextView
+    private lateinit var btnStart: Button
+    private lateinit var btnPause: Button
+    private lateinit var btnStop: Button
+
+    private var isRunning = false
+    private var startTime = 0L
+    private var elapsedTime = 0L
+    private val handler = android.os.Handler()
 
 
     override fun onCreateView(
@@ -45,9 +55,52 @@ class MainFragment : Fragment() {
         val btnNavigate2 = root.findViewById<Button>(R.id.btnNavigate2)
 
         tvUltimoMovimiento = root.findViewById(R.id.tvUltimoMovimiento)
-/*
+
         totalGeneralInfo = root.findViewById(R.id.total_general_info)
-*/
+
+
+
+        cronometroView = root.findViewById(R.id.cronometro)
+        btnStart = root.findViewById(R.id.btnStart)
+        btnPause = root.findViewById(R.id.btnPause)
+        btnStop = root.findViewById(R.id.btnStop)
+
+
+        btnStart.setOnClickListener {
+            if (!isRunning) {
+                startTime = System.currentTimeMillis()
+                handler.post(runnable)
+                isRunning = true
+            }
+        }
+
+        btnPause.setOnClickListener {
+            if (isRunning) {
+                elapsedTime += System.currentTimeMillis() - startTime
+                handler.removeCallbacks(runnable)
+                isRunning = false
+            }
+        }
+
+        btnStop.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("¿Finalizar jornada?")
+                .setMessage("¿Estás seguro que quieres terminar este día?")
+                .setPositiveButton("Sí") { dialog, which ->
+                    handler.removeCallbacks(runnable)
+                    isRunning = false
+                    startTime = 0L
+                    elapsedTime = 0L
+                    cronometroView.text = "00:00:00"
+                    Toast.makeText(requireContext(), "Día finalizado", Toast.LENGTH_SHORT).show()
+                    // Por ejemplo, podrías guardar la hora de término o limpiar algo
+                }
+                .setNegativeButton("No") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
 
 
         // Establecer la fecha inicial de la jornada
@@ -101,6 +154,8 @@ class MainFragment : Fragment() {
                     .appDatabase
                     .movimientosDao()
                     .insert(movimiento)
+                cargarTotales(fecha)
+
             }
 
             Toast.makeText(requireContext(), "Movimiento guardado", Toast.LENGTH_SHORT).show()
@@ -132,6 +187,9 @@ class MainFragment : Fragment() {
             }
         }
         cargarUltimoMovimiento(etFecha)
+        cargarTotales(etFecha.text.toString())
+
+
 
         return root
     }
@@ -144,12 +202,15 @@ class MainFragment : Fragment() {
                 val fechaSeleccionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                 etFecha.setText(fechaSeleccionada)
                 cargarUltimoMovimiento(etFecha)
+                cargarTotales(fechaSeleccionada)
             },
             calendario.get(Calendar.YEAR),
             calendario.get(Calendar.MONTH),
             calendario.get(Calendar.DAY_OF_MONTH)
         )
+
         datePicker.show()
+
     }
 
     // Función para mostrar el último movimiento
@@ -176,6 +237,50 @@ class MainFragment : Fragment() {
                     tvUltimoMovimiento.text = "No hay movimientos para el $fechaSeleccionada."
                 }
             }
+        }
+    }
+
+    private fun cargarTotales(fecha: String) {
+        Executors.newSingleThreadExecutor().execute {
+            val movimientos = DatabaseClient.getInstance(requireContext())
+                .appDatabase
+                .movimientosDao()
+                .getMovimientosByFecha(fecha)
+
+            val agrupados = movimientos.groupBy { it.metodoDePago }
+
+            val tarjeta = agrupados["Tarjeta"] ?: emptyList()
+            val abonado = agrupados["Abonado"] ?: emptyList()
+            val efectivo = agrupados["Efectivo"] ?: emptyList()
+            val retorno = agrupados["Retorno"] ?: emptyList()
+
+            val totalTarjeta = tarjeta.sumOf { it.valor }
+            val totalAbonado = abonado.sumOf { it.valor }
+            val totalEfectivo = efectivo.sumOf { it.valor }
+            val totalRetorno = retorno.sumOf { it.valor }
+
+            val totalGeneral = totalTarjeta + totalAbonado + totalEfectivo - totalRetorno
+
+
+
+            activity?.runOnUiThread {
+
+                totalGeneralInfo.text = "${"%.2f".format(totalGeneral ?: 0.0)} €"
+
+            }
+        }
+    }
+
+    private val runnable = object : Runnable {
+        override fun run() {
+            val currentTime = System.currentTimeMillis()
+            val time = currentTime - startTime + elapsedTime
+            val seconds = (time / 1000) % 60
+            val minutes = (time / (1000 * 60)) % 60
+            val hours = (time / (1000 * 60 * 60))
+
+            cronometroView.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+            handler.postDelayed(this, 1000)
         }
     }
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".MainFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,9 +16,9 @@
             android:id="@+id/etFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Selecciona la fecha (dd/MM/yyyy)"
+            android:clickable="true"
             android:focusable="false"
-            android:clickable="true" />
+            android:hint="Selecciona la fecha (dd/MM/yyyy)" />
 
         <EditText
             android:id="@+id/etValor"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:hint="Ingrese el valor"
             android:inputType="numberDecimal" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,17 +36,17 @@
             <RadioGroup
                 android:id="@+id/radioGroupPago"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/pago_tarjeta_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="Tarjeta"
-                    android:textSize="16sp"
-                    android:checked="true" />
+                    android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/pago_efectivo_radio"
@@ -67,20 +69,99 @@
                     android:text="Retorno"
                     android:textSize="16sp" />
             </RadioGroup>
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
-                <TextView
-                    android:text="🚕 Hoy"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:id="@+id/cronometroLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/cronometro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="00:00:00"
+                        android:textSize="39sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnStart"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:padding="8dp"
+                            android:text="▶"
+                            android:textColor="@android:color/black"
+                            android:textSize="22sp" />
+
+                        <Button
+                            android:id="@+id/btnPause"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:padding="8dp"
+                            android:text="⏸"
+                            android:textColor="@android:color/black"
+                            android:textSize="22sp" />
+
+                        <Button
+                            android:id="@+id/btnStop"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:padding="8dp"
+                            android:text="🛑"
+                            android:textColor="@android:color/black"
+                            android:textSize="22sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="🚕 Hoy"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/total_general_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="0"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>
-
 
 
         <Button
@@ -94,8 +175,9 @@
             android:id="@+id/btnNavigate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ver Totales"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="Ver Totales" />
+
         <Button
             android:id="@+id/btnNavigate2"
             android:layout_width="match_parent"
@@ -108,9 +190,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingTop="24dp"
             android:text="Último movimiento:"
             android:textColor="@android:color/black"
-            android:paddingTop="24dp"
             android:textSize="16sp" />
     </LinearLayout>
 </FrameLayout>
