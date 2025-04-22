@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etNuevoValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nuevo valor"
+            android:inputType="numberDecimal" />
+
+    <!-- Editar Método de Pago (con RadioButtons) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Método de pago"
+        android:textStyle="bold"
+        android:paddingTop="8dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupMetodoPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarjeta" />
+
+        <RadioButton
+            android:id="@+id/rbAbonados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Abonados" />
+
+        <RadioButton
+            android:id="@+id/rbEfectivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Efectivo" />
+
+        <RadioButton
+            android:id="@+id/rbRetorno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retorno" />
+    </RadioGroup>
+    </LinearLayout>

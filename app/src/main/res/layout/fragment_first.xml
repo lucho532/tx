@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/stats_background"
+            android:elevation="4dp">
+
+            <!-- Título Totales -->
+            <TextView
+                android:id="@+id/title_totales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Totales dia de hoy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:paddingBottom="16dp"
+                android:textColor="@android:color/black" />
+
+            <!-- Tabla de información -->
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:shrinkColumns="1">
+
+                <!-- Fila: Tarjeta -->
+                <TableRow>
+                    <TextView
+                        android:text="💳 Tarjeta"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tarjeta_info"
+                        android:text="0 (Viajes: 0)"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <!-- Fila: Abonados -->
+                <TableRow>
+                    <TextView
+                        android:text="📞 Abonados"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/abonado_info"
+                        android:text="0 (Viajes: 0)"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <!-- Fila: Efectivo -->
+                <TableRow>
+                    <TextView
+                        android:text="💵 Efectivo"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/efectivo_info"
+                        android:text="0 (Viajes: 0)"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <!-- Fila: Retorno -->
+                <TableRow>
+                    <TextView
+                        android:text="❌ Retorno"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/retorno_info"
+                        android:text="0 (Viajes: 0)"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <!-- Fila: Total -->
+                <TableRow>
+                    <TextView
+                        android:text="💰 Total"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/total_general_info"
+                        android:text="0 (Viajes: 0)"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <!-- Fila: Porcentaje -->
+                <TableRow>
+                    <TextView
+                        android:text="🫵🏻 Porcentaje"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/porcentaje_info"
+                        android:text="0%"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+                </TableRow>
+            </TableLayout>
+
+
+            <!-- NUEVO CUADRO: Totales Semanales y Mensuales -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:padding="16dp"
+                android:background="@drawable/stats_background"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Resumen Semanal / Mensual"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="16dp"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1"
+                    android:shrinkColumns="1">
+
+                    <!-- Total Semanal -->
+                    <TableRow>
+                        <TextView
+                            android:text="🗓️ Total Semanal"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:id="@+id/total_semanal_info"
+                            android:text="0 (Viajes: 0)"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+                    </TableRow>
+
+                    <!-- Total Mensual -->
+                    <TableRow>
+                        <TextView
+                            android:text="📅 Total Mensual"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:id="@+id/total_mensual_info"
+                            android:text="0 (Viajes: 0)"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+
+
+            <!-- Botón Volver -->
+            <Button
+                android:id="@+id/btn_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⬅ Volver"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"/>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
