@@ -5,146 +5,148 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".MainFragment">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <LinearLayout
-            android:id="@+id/cronometroLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="0dp">
-
-            <TextView
-                android:id="@+id/cronometro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="00:00:00"
-                android:textSize="30sp"
-                android:gravity="center"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnStart"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:text="▶"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"/>
-
-                <Button
-                    android:id="@+id/btnPause"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:text="⏸"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <Button
-                    android:id="@+id/btnStop"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:text="🛑"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/etFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:hint="Selecciona la fecha (dd/MM/yyyy)" />
-
-        <EditText
-            android:id="@+id/etValor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ingrese el valor"
-            android:inputType="numberDecimal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:padding="16dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroupPago"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/cronometroLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginTop="0dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="0dp">
 
-                <RadioButton
-                    android:id="@+id/pago_tarjeta_radio"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/cronometro"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Tarjeta"
-                    android:textSize="16sp" />
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center"
+                    android:text="00:00:00"
+                    android:textSize="30sp" />
 
-                <RadioButton
-                    android:id="@+id/pago_efectivo_radio"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Efectivo"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/pago_abonado_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Abonado"
-                    android:textSize="16sp" />
+                    <Button
+                        android:id="@+id/btnStart"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:text="▶"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/retorno"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Retorno"
-                    android:textSize="16sp" />
-            </RadioGroup>
+                    <Button
+                        android:id="@+id/btnPause"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:text="⏸"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btnStop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:text="🛑"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Selecciona la fecha (dd/MM/yyyy)" />
+
+            <EditText
+                android:id="@+id/etValor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese el valor"
+                android:inputType="numberDecimal" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupPago"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/pago_tarjeta_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tarjeta"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/pago_efectivo_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Efectivo"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/pago_abonado_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Abonado"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/retorno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Retorno"
+                        android:textSize="16sp" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:padding="20dp"
                         android:text="🚕 Hoy"
                         android:textSize="16sp" />
 
@@ -157,42 +159,41 @@
                         android:textSize="16sp" />
 
 
-
+                </LinearLayout>
             </LinearLayout>
+
+
+            <Button
+                android:id="@+id/agregar_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Agregar Movimiento" />
+
+            <Button
+                android:id="@+id/btnNavigate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Ver Totales" />
+
+            <Button
+                android:id="@+id/btnNavigate2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="ver servicios" />
+
+            <TextView
+                android:id="@+id/tvUltimoMovimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingTop="24dp"
+                android:text="Último movimiento:"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
         </LinearLayout>
-
-
-        <Button
-            android:id="@+id/agregar_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Agregar Movimiento" />
-
-        <Button
-            android:id="@+id/btnNavigate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Ver Totales" />
-
-        <Button
-            android:id="@+id/btnNavigate2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="ver servicios" />
-
-        <TextView
-            android:id="@+id/tvUltimoMovimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingTop="24dp"
-            android:text="Último movimiento:"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
 
 </FrameLayout>
