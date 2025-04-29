@@ -18,25 +18,24 @@ public interface MovimientoDao {
     void insert(Movimiento movimiento);
     @Query("SELECT * FROM Movimiento WHERE fecha = :fecha ORDER BY hora DESC LIMIT 1")
     Movimiento obtenerUltimoPorFecha(String fecha);
-    @Query("SELECT * FROM Movimiento ORDER BY fecha DESC, hora DESC")
+    @Query("SELECT * FROM Movimiento")
     List<Movimiento> getAllMovimientos();
-
+    @Query("SELECT SUM(propina) FROM movimiento WHERE fecha = :fecha")
+    Double obtenerTotalPropinaPorFecha(String fecha);
     @Query("SELECT * FROM Movimiento WHERE fecha = :fecha")
     List<Movimiento> getMovimientosByFecha(String fecha);
 
     @Query("SELECT * FROM movimiento WHERE fecha BETWEEN :inicio AND :fin")
     List<Movimiento> getMovimientosEntreFechas(String inicio, String fin);
+
+    @Query("SELECT * FROM movimiento WHERE strftime('%Y-%m-%d', substr(fecha, 7, 4) || '-' || substr(fecha, 4, 2) || '-' || substr(fecha, 1, 2)) BETWEEN :inicio AND :fin")
+    List<Movimiento> getMovimientosEntreFechas2(String inicio, String fin);
+
     @Update
     void update(Movimiento movimiento);
 
     @Delete
     void delete(Movimiento movimiento);
 
-    @Query("SELECT SUM(valor) FROM Movimiento WHERE fecha = :fecha")
-    Double obtenerTotalPorFecha(String fecha);
-
-
-    @Query("DELETE FROM Movimiento WHERE id = :id")
-    void deleteById(int id);
 }
 

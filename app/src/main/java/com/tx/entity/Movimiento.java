@@ -12,7 +12,42 @@ public class Movimiento {
     private String metodoDePago;
     private String fecha;
     private String hora;
+    private String horaInicio;
+    private String horaFin;
+    private String horaTotal;
+    private double propina;
 
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String getHoraTotal() {
+        return horaTotal;
+    }
+
+    public void setHoraTotal(String horaTotal) {
+        this.horaTotal = horaTotal;
+    }
+
+    public double getPropina() {
+        return propina;
+    }
+
+    public void setPropina(double propina) {
+        this.propina = propina;
+    }
 
     public int getId() {
         return id;

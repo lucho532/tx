@@ -1,14 +1,21 @@
 package com.tx
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.tx.database.DatabaseClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.DayOfWeek
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.Executors
 
 class FirstFragment : Fragment() {
@@ -21,6 +28,7 @@ class FirstFragment : Fragment() {
     private lateinit var porcentajeInfo: TextView
     private lateinit var totalSemanalInfo: TextView
     private lateinit var totalMensualInfo: TextView
+    private lateinit var totalPropinas: TextView
 
 
     private var fecha: String? = null
@@ -40,6 +48,7 @@ class FirstFragment : Fragment() {
         porcentajeInfo = root.findViewById(R.id.porcentaje_info)
         totalSemanalInfo = root.findViewById(R.id.total_semanal_info)
         totalMensualInfo = root.findViewById(R.id.total_mensual_info)
+        totalPropinas= root.findViewById(R.id.total_propinas)
 
         // Botón volver
         val back = root.findViewById<Button>(R.id.btn_volver)
@@ -57,6 +66,9 @@ class FirstFragment : Fragment() {
 
         return root
     }
+
+
+
 
     private fun cargarTotales(fecha: String) {
         Executors.newSingleThreadExecutor().execute {
@@ -98,24 +110,28 @@ class FirstFragment : Fragment() {
                 .appDatabase
                 .movimientosDao()
 
-            val formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val formatterSalida = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val hoy = java.time.LocalDate.now()
 
-            val inicioSemana = hoy.with(java.time.DayOfWeek.MONDAY).format(formatter)
-            val finSemana = hoy.with(java.time.DayOfWeek.SUNDAY).format(formatter)
+            val inicioSemana = hoy.with(DayOfWeek.MONDAY).format(formatterSalida)
+            val finSemana = hoy.with(DayOfWeek.SUNDAY).format(formatterSalida)
 
             val inicioMes = hoy.withDayOfMonth(1).format(formatter)
             val finMes = hoy.withDayOfMonth(hoy.lengthOfMonth()).format(formatter)
 
-            val semana = dao.getMovimientosEntreFechas(inicioSemana, finSemana)
+            val semana = dao.getMovimientosEntreFechas2(inicioSemana, finSemana)
             val mes = dao.getMovimientosEntreFechas(inicioMes, finMes)
+
 
             val totalSemana = semana.sumOf { it.valor }
             val totalMes = mes.sumOf { it.valor }
+            val propinasMes = mes.sumOf { it.propina }
 
             activity?.runOnUiThread {
                 totalSemanalInfo.text = "${"%.2f".format(totalSemana)} (${semana.size} V)"
                 totalMensualInfo.text = "${"%.2f".format(totalMes)} (${mes.size} V)"
+                totalPropinas.text = "${"%.2f".format(propinasMes)} (${mes.size} V)"
             }
         }
     }

@@ -30,6 +30,13 @@
         android:textSize="14sp"/>
 
     <TextView
+        android:id="@+id/propina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Propina: "
+        android:textSize="14sp"/>
+
+    <TextView
         android:id="@+id/tvMetodoDePago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

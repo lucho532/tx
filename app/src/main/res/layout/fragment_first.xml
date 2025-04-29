@@ -184,6 +184,7 @@
                             android:padding="8dp"
                             android:layout_width="0dp"
                             android:layout_weight="1"/>
+
                     </TableRow>
 
                     <!-- Total Mensual -->
@@ -201,6 +202,23 @@
                             android:padding="8dp"
                             android:layout_width="0dp"
                             android:layout_weight="1"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="🗓️ Total Propinas"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:id="@+id/total_propinas"
+                            android:text="0 (Viajes: 0)"
+                            android:textColor="@android:color/black"
+                            android:padding="8dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"/>
+
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
