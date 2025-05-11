@@ -17,24 +17,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <LinearLayout
-                android:id="@+id/cronometroLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="0dp">
-
-                <TextView
-                    android:id="@+id/cronometro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center"
-                    android:text="00:00:00"
-                    android:textSize="30sp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,7 +24,16 @@
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
                     android:orientation="horizontal">
-
+                    <TextView
+                        android:id="@+id/cronometro"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:text="00:00:00"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
                     <Button
                         android:id="@+id/btnStart"
                         android:layout_width="0dp"
@@ -54,16 +45,6 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp" />
 
-                    <Button
-                        android:id="@+id/btnPause"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:padding="8dp"
-                        android:text="⏸"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/btnStop"
@@ -107,11 +88,6 @@
                         android:text="total: \n00:00:00"
                         android:textSize="12sp" />
 
-                </LinearLayout>
-
-
-
-
             </LinearLayout>
 
             <EditText
@@ -138,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Cobrado"
+                    android:hint="Taximetro + Propina"
                     android:inputType="numberDecimal" />
             </LinearLayout>
 
@@ -149,6 +125,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupTipo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/servicio_taxi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taxi"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/servicio_radio_taxi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Radio Taxi"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/servicio_uber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Uber"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/servicio_bolt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bolt"
+                        android:textSize="16sp" />
+                    <RadioButton
+                        android:id="@+id/servicio_cabify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cabify"
+                        android:textSize="16sp" />
+                </RadioGroup>
 
                 <RadioGroup
                     android:id="@+id/radioGroupPago"
@@ -186,69 +204,100 @@
                         android:textSize="16sp" />
                 </RadioGroup>
 
-                <LinearLayout
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/agregar_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Agregar Mov" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="Actual"
-                        android:textSize="16sp" />
+                <Button
+                    android:id="@+id/btnNavigate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Ver Totales" />
 
-                    <TextView
-                        android:id="@+id/total_general_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="total: 0.00"
-                        android:textSize="16sp" />
-                    <TextView
-                        android:id="@+id/total_propina"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="propina: 0.00"
-                        android:textSize="16sp" />
+                <Button
+                    android:id="@+id/btnNavigate2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="ver servicios" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Actual"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/total_general_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="total: 0.00"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/total_propina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="propina: 0.00"
+                    android:textSize="16sp" />
 
 
-                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ultimo movimiento Agregado"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/ultimoAgregado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="total: 0.00"
+                    android:textSize="16sp" />
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/agregar_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Agregar Movimiento" />
-
-            <Button
-                android:id="@+id/btnNavigate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Ver Totales" />
-
-            <Button
-                android:id="@+id/btnNavigate2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="ver servicios" />
-
-            <TextView
-                android:id="@+id/tvUltimoMovimiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingTop="24dp"
-                android:text="Último movimiento:"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 

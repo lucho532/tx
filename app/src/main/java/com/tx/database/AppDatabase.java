@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.tx.dao.MovimientoDao;
 import com.tx.entity.Movimiento;
 
-    @Database(entities = {Movimiento.class}, version = 2)
+    @Database(entities = {Movimiento.class}, version = 3)
     public abstract class AppDatabase extends RoomDatabase {
         public abstract MovimientoDao movimientosDao();
     }

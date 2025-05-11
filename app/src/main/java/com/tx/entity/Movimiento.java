@@ -9,6 +9,7 @@ public class Movimiento {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private double valor;
+    private String tipo;
     private String metodoDePago;
     private String fecha;
     private String hora;
@@ -16,6 +17,15 @@ public class Movimiento {
     private String horaFin;
     private String horaTotal;
     private double propina;
+
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getHoraInicio() {
         return horaInicio;
@@ -88,4 +98,22 @@ public class Movimiento {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "id=" + id +
+                ", valor=" + valor +
+                ", tipo='" + tipo + '\'' +
+                ", metodoDePago='" + metodoDePago + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", hora='" + hora + '\'' +
+                ", horaInicio='" + horaInicio + '\'' +
+                ", horaFin='" + horaFin + '\'' +
+                ", horaTotal='" + horaTotal + '\'' +
+                ", propina=" + propina +
+                '}';
+    }
+
 }

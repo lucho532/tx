@@ -37,6 +37,13 @@
         android:textSize="14sp"/>
 
     <TextView
+        android:id="@+id/tipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tipo: "
+        android:textSize="14sp"/>
+
+    <TextView
         android:id="@+id/tvMetodoDePago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

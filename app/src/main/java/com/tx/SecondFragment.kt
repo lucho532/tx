@@ -68,13 +68,21 @@ class SecondFragment : Fragment() {
                         movimientos,
                         fechaSeleccionada
                     )
-                            Toast.makeText(requireContext(), "Archivo generado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Archivo generado", Toast.LENGTH_SHORT).show()
                 } else {
-                            Toast.makeText(requireContext(), "No hay movimientos para esta fecha.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "No hay movimientos para esta fecha.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                        Toast.makeText(requireContext(), "Error generando archivo: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error generando archivo: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -100,17 +108,24 @@ class SecondFragment : Fragment() {
     }
 
     private fun mostrarDialogoEditar(movimiento: Movimiento) {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_editar_movimiento, null)
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_editar_movimiento, null)
         val etNuevoValor = dialogView.findViewById<EditText>(R.id.etNuevoValor)
-        val radioGroup = dialogView.findViewById<RadioGroup>(R.id.radioGroupMetodoPago)
-
+        val radioGroupMetodo = dialogView.findViewById<RadioGroup>(R.id.radioGroupMetodoPago)
+        val radioGroupTipo = dialogView.findViewById<RadioGroup>(R.id.radioGroupTipo)
         etNuevoValor.setText(movimiento.valor.toString())
-
+        when (movimiento.tipo) {
+            "Taxi" -> radioGroupTipo.check(R.id.servicio_taxi)
+            "Radio Taxi" -> radioGroupTipo.check(R.id.servicio_radio_taxi)
+            "Uber" -> radioGroupTipo.check(R.id.servicio_uber)
+            "Bolt" -> radioGroupTipo.check(R.id.servicio_bolt)
+            "Cabify" -> radioGroupTipo.check(R.id.servicio_cabify)
+        }
         when (movimiento.metodoDePago) {
-            "Tarjeta" -> radioGroup.check(R.id.rbTarjeta)
-            "Abonados" -> radioGroup.check(R.id.rbAbonados)
-            "Efectivo" -> radioGroup.check(R.id.rbEfectivo)
-            "Retorno" -> radioGroup.check(R.id.rbRetorno)
+            "Tarjeta" -> radioGroupMetodo.check(R.id.rbTarjeta)
+            "Abonados" -> radioGroupMetodo.check(R.id.rbAbonados)
+            "Efectivo" -> radioGroupMetodo.check(R.id.rbEfectivo)
+            "Retorno" -> radioGroupMetodo.check(R.id.rbRetorno)
         }
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -118,7 +133,15 @@ class SecondFragment : Fragment() {
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
                 val nuevoValor = etNuevoValor.text.toString().toDoubleOrNull()
-                val metodoPagoSeleccionado = when (radioGroup.checkedRadioButtonId) {
+                val tipoSeleccionado= when(radioGroupTipo.checkedRadioButtonId){
+                    R.id.servicio_taxi -> "Taxi"
+                    R.id.servicio_radio_taxi -> "Radio Taxi"
+                    R.id.servicio_uber -> "Uber"
+                    R.id.servicio_bolt -> "Bolt"
+                    R.id.servicio_cabify -> "Cabify"
+                    else -> null
+                }
+                val metodoPagoSeleccionado = when (radioGroupMetodo.checkedRadioButtonId) {
                     R.id.rbTarjeta -> "Tarjeta"
                     R.id.rbAbonados -> "Abonados"
                     R.id.rbEfectivo -> "Efectivo"
@@ -126,8 +149,9 @@ class SecondFragment : Fragment() {
                     else -> null
                 }
 
-                if (nuevoValor != null && metodoPagoSeleccionado != null) {
+                if (nuevoValor != null && metodoPagoSeleccionado != null && tipoSeleccionado != null) {
                     movimiento.valor = nuevoValor
+                    movimiento.tipo = tipoSeleccionado
                     movimiento.metodoDePago = metodoPagoSeleccionado
 
                     Executors.newSingleThreadExecutor().execute {
@@ -136,11 +160,16 @@ class SecondFragment : Fragment() {
                             .movimientosDao()
                             .update(movimiento)
                     }
-                        Toast.makeText(requireContext(), "Movimiento actualizado", Toast.LENGTH_SHORT).show()
-                        cargarMovimientos()
+                    Toast.makeText(requireContext(), "Movimiento actualizado", Toast.LENGTH_SHORT)
+                        .show()
+                    cargarMovimientos()
                 } else {
 
-                        Toast.makeText(requireContext(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Por favor, completa todos los campos",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 }
             }

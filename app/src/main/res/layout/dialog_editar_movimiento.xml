@@ -20,34 +20,92 @@
         android:textStyle="bold"
         android:paddingTop="8dp"/>
 
-    <RadioGroup
-        android:id="@+id/radioGroupMetodoPago"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-        <RadioButton
-            android:id="@+id/rbTarjeta"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGroupTipo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tarjeta" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/rbAbonados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Abonados" />
+            <RadioButton
+                android:id="@+id/servicio_taxi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxi"
+                android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/rbEfectivo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Efectivo" />
+            <RadioButton
+                android:id="@+id/servicio_radio_taxi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radio Taxi"
+                android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/rbRetorno"
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/servicio_uber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uber"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/servicio_bolt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bolt"
+                android:textSize="16sp" />
+            <RadioButton
+                android:id="@+id/servicio_cabify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cabify"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroupMetodoPago"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Retorno" />
-    </RadioGroup>
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rbTarjeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tarjeta"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbEfectivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectivo"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbAbonados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abonado"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbRetorno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retorno"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+
+    </LinearLayout>
     </LinearLayout>

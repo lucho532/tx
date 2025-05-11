@@ -30,7 +30,6 @@ import java.util.concurrent.Executors
 
 class MainFragment : Fragment() {
     private var fechaJornada: String? = null
-    private lateinit var tvUltimoMovimiento: TextView
     private lateinit var totalGeneralInfo: TextView
     private lateinit var totalPropina: TextView
     private lateinit var initTimeTextView: TextView
@@ -38,7 +37,7 @@ class MainFragment : Fragment() {
     private lateinit var diferenceTimeTextView: TextView
     private lateinit var cronometroView: TextView
     private lateinit var btnStart: Button
-    private lateinit var btnPause: Button
+    private lateinit var tvUltimoMovimiento: TextView
     private lateinit var btnStop: Button
 
     private var isRunning = false
@@ -59,6 +58,7 @@ class MainFragment : Fragment() {
         val etValor = root.findViewById<EditText>(R.id.etValor)
         val etCobrado = root.findViewById<EditText>(R.id.etCobrado)
         val radioGroupPago = root.findViewById<RadioGroup>(R.id.radioGroupPago)
+        val radioGroupTipo = root.findViewById<RadioGroup>(R.id.radioGroupTipo)
         val agregarButton = root.findViewById<Button>(R.id.agregar_button)
         val btnNavigate = root.findViewById<Button>(R.id.btnNavigate)
         val btnNavigate2 = root.findViewById<Button>(R.id.btnNavigate2)
@@ -67,7 +67,6 @@ class MainFragment : Fragment() {
         initTimeTextView = root.findViewById(R.id.initTime)
         finishmeTextView = root.findViewById(R.id.finishTime)
         diferenceTimeTextView = root.findViewById(R.id.totaltime)
-        tvUltimoMovimiento = root.findViewById(R.id.tvUltimoMovimiento)
 
         totalGeneralInfo = root.findViewById(R.id.total_general_info)
         totalPropina = root.findViewById(R.id.total_propina)
@@ -76,7 +75,7 @@ class MainFragment : Fragment() {
 
         cronometroView = root.findViewById(R.id.cronometro)
         btnStart = root.findViewById(R.id.btnStart)
-        btnPause = root.findViewById(R.id.btnPause)
+        tvUltimoMovimiento = root.findViewById(R.id.ultimoAgregado)
         btnStop = root.findViewById(R.id.btnStop)
 
 
@@ -91,73 +90,104 @@ class MainFragment : Fragment() {
 
                 val fecha = etFecha.text.toString()
 
-
                 Executors.newSingleThreadExecutor().execute {
-                    val ultimo = DatabaseClient.getInstance(requireContext())
+                    val movimientosDao = DatabaseClient.getInstance(requireContext())
                         .appDatabase
                         .movimientosDao()
-                        .obtenerUltimoPorFecha(fecha)
 
-                    if (ultimo != null) {
-                        ultimo.horaInicio = horaInicio
-                        DatabaseClient.getInstance(requireContext())
-                            .appDatabase
-                            .movimientosDao()
-                            .update(ultimo)
+                    // Verificar si ya existe un registro para esta fecha
+                    val yaExiste = movimientosDao.existeMovimientoEnFecha(fecha)
+
+                    if (!yaExiste) {
+                        // Insertar nuevo registro de jornada con horaInicio
+                        val movimientoInicio = Movimiento().apply {
+                            this.fecha = fecha
+                            this.horaInicio = horaInicio
+                            this.valor = 0.0
+                            this.propina = 0.0
+                            this.metodoDePago = "Inicio Jornada"
+                            this.hora = horaInicio
+                        }
+
+                        movimientosDao.insert(movimientoInicio)
                     }
                 }
             }
         }
-
-
-        btnPause.setOnClickListener {
-            if (isRunning) {
-                elapsedTime += System.currentTimeMillis() - startTime
-                handler.removeCallbacks(runnable)
-                isRunning = false
-            }
-        }
-
         btnStop.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("¿Finalizar jornada?")
                 .setMessage("¿Estás seguro que quieres terminar este día?")
-                .setPositiveButton("Sí") { dialog, which ->
+                .setPositiveButton("Sí") { dialog, _ ->
 
+                    val fecha = etFecha.text.toString().trim()
                     val horaFin = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-                    finishmeTextView.text = "Hora Fin:\n$horaFin"
-                    val fecha = etFecha.text.toString()
-
-                    handler.removeCallbacks(runnable)
-                    isRunning = false
-                    startTime = 0L
-                    elapsedTime = 0L
-                    cronometroView.text = "00:00:00"
 
                     Executors.newSingleThreadExecutor().execute {
-                        val ultimo = DatabaseClient.getInstance(requireContext())
-                            .appDatabase
-                            .movimientosDao()
-                            .obtenerUltimoPorFecha(fecha)
-                        if (ultimo != null){
-                            val final= calcularDuracion(ultimo.horaInicio, horaFin)
-                            diferenceTimeTextView.text = "Hora Fin:\n$final"
+                        val dao = DatabaseClient.getInstance(requireContext()).appDatabase.movimientosDao()
 
-                            ultimo.horaFin = horaFin
-                            ultimo.horaTotal = final
+                        val inicioExiste = dao.existeMovimientoEnFecha(fecha)
+                        val finalYaExiste = dao.existeFinalEnFecha(fecha)
 
-                            DatabaseClient.getInstance(requireContext())
-                                .appDatabase
-                                .movimientosDao()
-                                .update(ultimo)
+                        activity?.runOnUiThread {
+                            if (!inicioExiste) {
+                                Toast.makeText(requireContext(), "No puedes finalizar una jornada que no ha sido iniciada.", Toast.LENGTH_SHORT).show()
+                                return@runOnUiThread
+                            }
+                            if (finalYaExiste) {
+                                Toast.makeText(requireContext(), "Esta jornada ya ha sido finalizada.", Toast.LENGTH_SHORT).show()
+                                return@runOnUiThread
+                            }
+
+                            // Detener cronómetro
+                            handler.removeCallbacks(runnable)
+                            isRunning = false
+                            startTime = 0L
+                            elapsedTime = 0L
+                            cronometroView.text = "00:00:00"
+                            finishmeTextView.text = "Hora Fin:\n$horaFin"
+
+                            // Obtener primera hora (inicio)
+                            Executors.newSingleThreadExecutor().execute {
+                                val primero = dao.obtenerPrimeroPorFecha(fecha)
+                                val horaInicio = primero?.hora ?: "00:00:00"
+                                val duracion = calcularDuracion(horaInicio, horaFin)
+                                val existente = dao.obtenerFinalDeJornada(fecha)
+
+                                if (existente != null) {
+                                    existente.hora=horaFin
+                                    existente.horaFin = horaFin
+                                    existente.horaTotal = duracion
+                                    dao.update(existente)
+                                    Log.d("BBDD", "Actualizado Final de Jornada: ${existente}")
+                                }else{
+                                    val finalMovimiento = Movimiento().apply {
+                                        this.fecha = fecha
+                                        this.valor = 0.0
+                                        this.tipo = "Final de Jornada"
+                                        this.propina = 0.0
+                                        this.metodoDePago = "N/A"
+                                        this.horaFin = horaFin
+                                        this.horaInicio = horaInicio
+                                        this.horaTotal = duracion
+                                        this.hora = horaFin // Guarda también en el campo principal
+                                    }
+                                    dao.insert(finalMovimiento)
+
+                                }
+                                activity?.runOnUiThread {
+                                    diferenceTimeTextView.text = "Duración:\n$duracion"
+                                    cargarUltimoMovimiento(fecha)
+                                    Toast.makeText(requireContext(), "Jornada finalizada correctamente.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
                         }
                     }
-
-                    Toast.makeText(requireContext(), "Día finalizado", Toast.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("No") { dialog, which -> dialog.dismiss() }
+                .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
                 .show()
         }
+
 
 
 
@@ -171,12 +201,13 @@ class MainFragment : Fragment() {
         fechaJornada?.let {
             mostrarHorasPorFecha(it)
             cargarTotales(it)
+            cargarUltimoMovimiento(it)
         }
 
         // Mostrar DatePickerDialog al hacer clic en el campo
-        etFecha.setOnClickListener {
+            etFecha.setOnClickListener {
             mostrarDatePickerDialog(etFecha)
-            cargarUltimoMovimiento(etFecha)
+            cargarUltimoMovimiento(etFecha.text.toString())
         }
 
         // Acción botón "Agregar Movimiento"
@@ -195,6 +226,15 @@ class MainFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            val selectedIdTipo = radioGroupTipo.checkedRadioButtonId
+            if (selectedIdTipo == -1) {
+                Toast.makeText(requireContext(), "Selecciona el tipo de servicio", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val selectedRadioTipo = root.findViewById<RadioButton>(selectedIdTipo)
+            val tipoServicio = selectedRadioTipo.text.toString()
+
             val selectedId = radioGroupPago.checkedRadioButtonId
             if (selectedId == -1) {
                 Toast.makeText(requireContext(), "Selecciona un método de pago", Toast.LENGTH_SHORT).show()
@@ -205,41 +245,53 @@ class MainFragment : Fragment() {
             val metodoDePago = selectedRadio.text.toString()
             val hora = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
 
-
-
             val valorCobradoStr = etValor.text.toString().trim()
             val propinaIngresadaStr = etCobrado.text.toString().trim()
 
             val valorCobrado = valorCobradoStr.toDoubleOrNull() ?: 0.0
             val propinaIngresada = propinaIngresadaStr.toDoubleOrNull() ?: 0.0
-            val vlrPropina = propinaIngresada - valorCobrado
-
-
-
-            // Crear y guardar el movimiento
-            val movimiento = Movimiento().apply {
-                this.fecha = fecha
-                this.valor = valor
-                this.propina = vlrPropina
-                this.metodoDePago = metodoDePago
-                this.hora = hora
+            val vlrPropina = if (propinaIngresadaStr.isNotEmpty()) {
+                propinaIngresada - valorCobrado
+            } else {
+                0.0
             }
 
+            // Validación robusta: verificar si existe un inicio de jornada para la fecha
             Executors.newSingleThreadExecutor().execute {
-                DatabaseClient.getInstance(requireContext())
-                    .appDatabase
-                    .movimientosDao()
-                    .insert(movimiento)
-                cargarTotales(fecha)
+                val dao = DatabaseClient.getInstance(requireContext()).appDatabase.movimientosDao()
+                val inicioExiste = dao.existeMovimientoEnFecha(fecha) // asegúrate que este método esté implementado
 
+                activity?.runOnUiThread {
+                    if (!inicioExiste) {
+                        Toast.makeText(requireContext(), "Debes iniciar la jornada con el cronómetro antes de agregar movimientos.", Toast.LENGTH_SHORT).show()
+                        return@runOnUiThread
+                    }
+
+                    // Si pasó la validación, se crea el movimiento
+                    val movimiento = Movimiento().apply {
+                        this.fecha = fecha
+                        this.valor = valor
+                        this.tipo = tipoServicio
+                        this.propina = vlrPropina
+                        this.metodoDePago = metodoDePago
+                        this.hora = hora
+                    }
+
+                    Executors.newSingleThreadExecutor().execute {
+                        dao.insert(movimiento)
+                        cargarTotales(fecha)
+                        cargarUltimoMovimiento(fecha);
+                    }
+
+                    Toast.makeText(requireContext(), "Movimiento guardado", Toast.LENGTH_SHORT).show()
+                    etValor.text.clear()
+                    etCobrado.text.clear()
+                    radioGroupPago.clearCheck()
+                    radioGroupTipo.clearCheck()
+                }
             }
-
-            Toast.makeText(requireContext(), "Movimiento guardado", Toast.LENGTH_SHORT).show()
-            etValor.text.clear()
-            etCobrado.text.clear()
-            radioGroupPago.clearCheck()
-            cargarUltimoMovimiento(etFecha)
         }
+
 
         btnNavigate.setOnClickListener{
             val fecha = etFecha.text.toString().trim()
@@ -263,7 +315,7 @@ class MainFragment : Fragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_secondFragment2, bundle)
             }
         }
-        cargarUltimoMovimiento(etFecha)
+        //cargarUltimoMovimiento(etFecha)
         cargarTotales(etFecha.text.toString())
 
 
@@ -287,7 +339,7 @@ class MainFragment : Fragment() {
             { _, year, month, dayOfMonth ->
                 val fechaSeleccionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                 etFecha.setText(fechaSeleccionada)
-                cargarUltimoMovimiento(etFecha)
+                //cargarUltimoMovimiento(etFecha)
                 cargarTotales(fechaSeleccionada)
                 mostrarHorasPorFecha(fechaSeleccionada)
             },
@@ -300,9 +352,9 @@ class MainFragment : Fragment() {
 
     }
 
-    // Función para mostrar el último movimiento
-    fun cargarUltimoMovimiento(etFecha: EditText) {
-        val fechaSeleccionada = etFecha.text.toString()
+     //Función para mostrar el último movimiento
+    fun cargarUltimoMovimiento(etFecha: String) {
+        val fechaSeleccionada = etFecha
         Executors.newSingleThreadExecutor().execute {
             val ultimo = DatabaseClient.getInstance(requireContext())
                 .appDatabase
@@ -318,7 +370,8 @@ class MainFragment : Fragment() {
                     Valor: ${ultimo.valor}
                     Propina: ${ultimo.propina}
                     Pago: ${ultimo.metodoDePago}
-                    
+                    tipo: ${ultimo.tipo}
+
                 """.trimIndent()
 
                 } else {
@@ -378,10 +431,20 @@ class MainFragment : Fragment() {
 
     private fun calcularDuracion(horaInicio: String?, horaFin: String?): String {
         if (horaInicio.isNullOrEmpty() || horaFin.isNullOrEmpty()) return "00:00:00"
+
         return try {
             val formato = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
             val inicio = formato.parse(horaInicio)
-            val fin = formato.parse(horaFin)
+            var fin = formato.parse(horaFin)
+
+            if (fin.before(inicio)) {
+                // Fin es al día siguiente
+                val calendar = Calendar.getInstance()
+                calendar.time = fin
+                calendar.add(Calendar.DATE, 1)
+                fin = calendar.time
+            }
+
             val diferencia = fin.time - inicio.time
 
             val segundos = (diferencia / 1000) % 60
@@ -394,20 +457,65 @@ class MainFragment : Fragment() {
         }
     }
 
+
     private fun mostrarHorasPorFecha(fecha: String) {
         Executors.newSingleThreadExecutor().execute {
-            val movimiento = DatabaseClient.getInstance(requireContext())
-                .appDatabase
-                .movimientosDao()
-                .obtenerUltimoPorFecha(fecha)
+            val db = DatabaseClient.getInstance(requireContext()).appDatabase.movimientosDao()
 
+            val primerMovimiento = db.obtenerPrimeroPorFecha(fecha)
+            val ultimoMovimiento = db.obtenerUltimoPorFecha(fecha)
+            Log.d("BBDD", "Movimientos para primer $fecha: $primerMovimiento")
+            Log.d("BBDD", "Movimientos para ultimo $fecha: $ultimoMovimiento")
             activity?.runOnUiThread {
-                initTimeTextView.text = "Hora Inicio:\n${movimiento?.horaInicio ?: "00:00:00"}"
-                finishmeTextView.text = "Hora Fin:\n${movimiento?.horaFin ?: "00:00:00"}"
-                diferenceTimeTextView.text = "Duración:\n${movimiento?.horaTotal ?: "00:00:00"}"
+                val horaInicio = primerMovimiento?.horaInicio
+                val horaFin = ultimoMovimiento?.horaFin
+                val horaTotal = ultimoMovimiento?.horaTotal
+
+                initTimeTextView.text = "Hora Inicio:\n${horaInicio ?: "00:00:00"}"
+                finishmeTextView.text = "Hora Fin:\n${horaFin ?: "00:00:00"}"
+                diferenceTimeTextView.text = "Duración:\n${horaTotal ?: "00:00:00"}"
+
+                if (!horaInicio.isNullOrEmpty() &&
+                    (horaFin.isNullOrEmpty() || horaFin == "00:00:00") &&
+                    (horaTotal.isNullOrEmpty() || horaTotal == "00:00:00")
+                ) {
+                    try {
+                        val formato = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                        val horaInicioDate = formato.parse(horaInicio)
+
+                        val calendarInicio = Calendar.getInstance()
+                        calendarInicio.time = Date() // Fecha actual
+
+                        val temp = Calendar.getInstance()
+                        temp.time = horaInicioDate!!
+
+                        calendarInicio.set(Calendar.HOUR_OF_DAY, temp.get(Calendar.HOUR_OF_DAY))
+                        calendarInicio.set(Calendar.MINUTE, temp.get(Calendar.MINUTE))
+                        calendarInicio.set(Calendar.SECOND, temp.get(Calendar.SECOND))
+                        calendarInicio.set(Calendar.MILLISECOND, 0)
+
+                        val ahora = Calendar.getInstance()
+
+                        if (calendarInicio.after(ahora)) {
+                            calendarInicio.add(Calendar.DAY_OF_YEAR, -1)
+                        }
+
+                        val diferencia = ahora.timeInMillis - calendarInicio.timeInMillis
+
+                        startTime = System.currentTimeMillis() - diferencia
+                        elapsedTime = 0L
+                        handler.post(runnable)
+                        isRunning = true
+                    } catch (e: Exception) {
+                        Log.e("MainFragment", "Error al calcular cronómetro desde horaInicio", e)
+                    }
+                }
             }
         }
     }
+
+
+
 
 
 }
