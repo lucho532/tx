@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "com.tx"
+    namespace = "com.luchodevs.tx"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.tx"
+        applicationId = "com.luchodevs.tx"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "3.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -60,6 +60,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("org.apache.poi:poi-ooxml:5.2.3")
 
+    implementation ("androidx.work:work-runtime:2.9.0")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")

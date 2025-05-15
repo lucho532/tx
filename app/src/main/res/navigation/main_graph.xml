@@ -8,17 +8,17 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.tx.FirstFragment"
+        android:name="com.luchodevs.tx.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" />
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.tx.SecondFragment"
+        android:name="com.luchodevs.tx.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.tx.MainFragment"
+        android:name="com.luchodevs.tx.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action

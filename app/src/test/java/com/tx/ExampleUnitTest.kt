@@ -1,4 +1,4 @@
-package com.tx
+package com.luchodevs.tx
 
 import org.junit.Test
 

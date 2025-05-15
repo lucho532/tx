@@ -704,7 +704,49 @@
                 </TableLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/totalesdia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <!-- Cabify _________________________________________________________ -->
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="1"
+                    android:stretchColumns="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:text="Resumen"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TableRow>
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💳Tarjeta" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_tarjeta_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_tarjeta_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_tarjeta_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💵Efectivo" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_efectivo_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_efectivo_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                        <TextView android:id="@+id/resumen_efectivo_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💰Total" android:textColor="@android:color/black" android:textStyle="bold" />
+                        <TextView android:id="@+id/resumen_total_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+                        <TextView android:id="@+id/resumen_total_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+                        <TextView android:id="@+id/resumen_total_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
 
             <!-- NUEVO CUADRO: Totales Semanales y Mensuales -->
             <LinearLayout
