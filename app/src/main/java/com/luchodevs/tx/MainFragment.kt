@@ -33,6 +33,7 @@ class MainFragment : Fragment() {
     private lateinit var totalPropina: TextView
     private lateinit var btnOpenChronometer: Button
     private lateinit var btnadmin: Button
+    private lateinit var btnGrafico: Button
     private lateinit var tvUltimoMovimiento: TextView
 
     override fun onCreateView(
@@ -82,7 +83,7 @@ class MainFragment : Fragment() {
         totalPropina = root.findViewById(R.id.total_propina)
         tvUltimoMovimiento = root.findViewById(R.id.ultimoAgregado)
         btnadmin = root.findViewById(R.id.btnadmin)
-
+        btnGrafico = root.findViewById(R.id.btnGrafico)
 
         btnOpenChronometer = root.findViewById(R.id.btnOpenChronometer);
         btnOpenChronometer.setOnClickListener {
@@ -92,6 +93,16 @@ class MainFragment : Fragment() {
             fragment.arguments = bundle
             fragment.show(parentFragmentManager, "ChronometerDialog")
         }
+
+        btnGrafico.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("fechaSeleccionada", etFecha.text.toString())
+
+            val dialog = productividad() // ← tu DialogFragment
+            dialog.arguments = bundle
+            dialog.show(parentFragmentManager, "ProductividadDialog")
+        }
+
 
         // Establecer la fecha inicial de la jornada
         if (fechaJornada.isNullOrEmpty()) {
@@ -173,9 +184,11 @@ class MainFragment : Fragment() {
                     }
                     return@execute
                 }
-
+                val isoFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val fechaHoraInicio = isoFormat.format(Date())
                 // ✅ Si hay jornada, insertar
                 val movimiento = Movimiento().apply {
+                    this.fechaHoraCompleta = fechaHoraInicio
                     this.fecha = fecha
                     this.valor = valor
                     this.tipo = tipoServicio
@@ -185,6 +198,7 @@ class MainFragment : Fragment() {
                 }
 
                 dao.insert(movimiento)
+                Log.d("BD_MOVIMIENTO", movimiento.toString())
                 val btnChronometer = requireView().findViewById<Button>(R.id.btnOpenChronometer)
                 btnChronometer.setBackgroundColor(Color.parseColor("#DDDDDD"))
 
@@ -323,17 +337,24 @@ class MainFragment : Fragment() {
     fun cargarUltimoMovimiento(etFecha: String) {
         val fechaSeleccionada = etFecha
         Executors.newSingleThreadExecutor().execute {
-            val ultimo = DatabaseClient.getInstance(requireContext())
-                .appDatabase
-                .movimientosDao()
-                .obtenerUltimoPorFecha(fechaSeleccionada)
+            val dao = DatabaseClient.getInstance(requireContext()).appDatabase.movimientosDao()
+
+            val ultimo = dao.obtenerUltimoMovimientoFechaCompleta(fechaSeleccionada)
+            val inicioJornada = dao.obtenerMovimientoConInicio(fechaSeleccionada)
 
             activity?.runOnUiThread {
                 if (ultimo != null) {
+                    var horaMostrada = ultimo.hora
+                    if (ultimo.fechaHoraCompleta != null && inicioJornada.fechaHoraCompleta != null){
+                        if (ultimo.fechaHoraCompleta < inicioJornada.fechaHoraCompleta){
+                            horaMostrada = "+1 ${ultimo.hora}"
+                        }
+                    }
+
                     tvUltimoMovimiento.text = """
                     Último movimiento:
                     Fecha: ${ultimo.fecha}
-                    Hora: ${ultimo.hora}
+                    Hora: $horaMostrada
                     Valor: ${ultimo.valor}
                     Propina: ${"%.2f".format(ultimo.propina)}
                     Pago: ${ultimo.metodoDePago}

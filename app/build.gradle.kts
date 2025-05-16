@@ -12,8 +12,8 @@ android {
         applicationId = "com.luchodevs.tx"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "3.0.0"
+        versionCode = 4
+        versionName = "4.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,6 +59,8 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("org.apache.poi:poi-ooxml:5.2.3")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
     implementation ("androidx.work:work-runtime:2.9.0")
     implementation("androidx.core:core-ktx:1.15.0")

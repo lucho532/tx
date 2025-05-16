@@ -28,6 +28,8 @@ public interface MovimientoDao {
     List<Movimiento> getAllMovimientos();
     @Query("DELETE FROM Movimiento WHERE  valor = 0.00 AND fecha = :fecha")
     void eliminarMovimientosConValorCero(String fecha);
+    @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND valor > 0.00 ORDER BY fechaHoraCompleta DESC LIMIT 1")
+    Movimiento obtenerUltimoMovimientoFechaCompleta(String fecha);
 
     @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND tipo = 'Final de Jornada' LIMIT 1")
     Movimiento obtenerFinalDeJornada(String fecha);

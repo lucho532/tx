@@ -13,6 +13,7 @@ public class Movimiento {
     private String metodoDePago;
     private String fecha;
     private String hora;
+    private String fechaHoraCompleta;
     private String horaInicio;
     private String horaFin;
     private String horaTotal;
@@ -49,6 +50,14 @@ public class Movimiento {
 
     public void setHoraTotal(String horaTotal) {
         this.horaTotal = horaTotal;
+    }
+
+    public String getFechaHoraCompleta() {
+        return fechaHoraCompleta;
+    }
+
+    public void setFechaHoraCompleta(String fechaHoraCompleta) {
+        this.fechaHoraCompleta = fechaHoraCompleta;
     }
 
     public double getPropina() {

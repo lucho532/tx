@@ -21,6 +21,7 @@ import com.luchodevs.tx.database.DatabaseClient;
 import com.luchodevs.tx.entity.Movimiento;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -91,10 +92,23 @@ public class FloatingChronometerFragment extends DialogFragment {
                         } else {
                             // Jornada en curso, iniciar cronómetro
                             try {
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
-                                Date horaInicioDate = sdf.parse(currentDate + " " + existente.getHoraInicio());
-                                Date ahora = new Date();
-                                long tiempoTranscurrido = ahora.getTime() - horaInicioDate.getTime();
+                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                                Date horaInicioTime = timeFormat.parse(existente.getHoraInicio());
+
+                                Calendar now = Calendar.getInstance();
+                                Calendar inicioCal = Calendar.getInstance();
+                                inicioCal.setTime(horaInicioTime);
+                                inicioCal.set(Calendar.YEAR, now.get(Calendar.YEAR));
+                                inicioCal.set(Calendar.MONTH, now.get(Calendar.MONTH));
+                                inicioCal.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+
+// Si el tiempo de inicio está en el futuro (ej: ayer a las 23:00 y ahora son las 00:30)
+                                if (inicioCal.after(now)) {
+                                    inicioCal.add(Calendar.DAY_OF_MONTH, -1);
+                                }
+
+                                long tiempoTranscurrido = now.getTimeInMillis() - inicioCal.getTimeInMillis();
+
 
                                 startTime = System.currentTimeMillis() - tiempoTranscurrido;
                                 handler.post(runnable);
@@ -168,6 +182,7 @@ public class FloatingChronometerFragment extends DialogFragment {
 
                 String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                String fechaHoraCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
                 // Verificar si ya hay jornada iniciada
                 Movimiento existente = dao.obtenerMovimientoConInicio(fechaSeleccionada);
@@ -183,6 +198,7 @@ public class FloatingChronometerFragment extends DialogFragment {
                 movimiento.setHoraInicio(currentTime);
                 movimiento.setValor(0.00);
                 movimiento.setTipo("Inicio Jornada");
+                movimiento.setFechaHoraCompleta(fechaHoraCompleta);
                 dao.insert(movimiento);
 
                 requireActivity().runOnUiThread(() -> {
@@ -217,12 +233,14 @@ public class FloatingChronometerFragment extends DialogFragment {
 
                 String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                String fechaHoraCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
                 // Obtener el movimiento con tipo = "Inicio Jornada"
                 Movimiento movimiento = dao.obtenerMovimientoConInicio(fechaSeleccionada);
 
                 if (movimiento != null) {
                     movimiento.setHoraFin(currentTime);
+                    movimiento.setFechaHoraCompleta(fechaHoraCompleta);
 
                     String tiempoTotal = chronometerView.getText().toString();
                     movimiento.setHoraTotal(tiempoTotal);

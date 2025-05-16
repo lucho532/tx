@@ -20,7 +20,7 @@ public class DatabaseClient {
 
         // Crear base de datos con Room
         appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "mi_base_datos")
-                .addMigrations(MIGRATION_2_3)
+                .addMigrations(MIGRATION_3_4)
                 .build();
 
     }
@@ -55,6 +55,14 @@ public class DatabaseClient {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE movimiento ADD COLUMN tipo TEXT");
+
+        }
+    };
+
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE movimiento ADD COLUMN fechaHoraCompleta TEXT");
 
         }
     };
