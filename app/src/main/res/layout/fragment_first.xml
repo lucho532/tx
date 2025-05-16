@@ -18,14 +18,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            
-        <!-- Botón para expandir/minimizar -->
+
+            <!-- Botón para expandir/minimizar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
 
                 <!-- Fila 1 -->
                 <LinearLayout
@@ -38,14 +38,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Taxi +"/>
+                        android:text="Taxi +" />
 
                     <Button
                         android:id="@+id/btnExpandCollapseRadioTaxi"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Radio Taxi +"/>
+                        android:text="Radio Taxi +" />
                 </LinearLayout>
 
                 <!-- Fila 2 -->
@@ -59,427 +59,441 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Uber +"/>
+                        android:text="Uber +" />
 
                     <Button
                         android:id="@+id/btnExpandCollapseRadiobolt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Bolt +"/>
+                        android:text="Bolt +" />
 
                     <Button
                         android:id="@+id/btnExpandCollapsecabify"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cabify +"/>
+                        android:text="Cabify +" />
                 </LinearLayout>
             </LinearLayout>
 
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shrinkColumns="1"
-                android:stretchColumns="1">
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="Diario"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="Semanal"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="Mensual"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-                </TableRow>
-            </TableLayout>
             <!-- Contenedor que se puede expandir/minimizar -->
-        <LinearLayout
-            android:id="@+id/taxiInfoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-            <!-- Taxi_________________________________________________________ -->
-            <!-- Tabla de información -->
-            <TableLayout
+            <LinearLayout
+                android:id="@+id/taxiInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:shrinkColumns="1"
-                android:stretchColumns="1">
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <TextView
+
+                <!-- Taxi_________________________________________________________ -->
+                <!-- Tabla de información -->
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="16dp"
-                    android:text="Taxi"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-                <TableRow>
+                    android:shrinkColumns="1"
+                    android:stretchColumns="1">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💳Tarjeta"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_tarjeta_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_tarjeta_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_tarjeta_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-
-                <!-- Fila: Efectivo -->
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💵Efectivo"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_efectivo_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_efectivo_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/taxi_efectivo_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-
-                <!-- Fila: Total -->
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💰Total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:text="Taxi"
                         android:textColor="@android:color/black"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/taxi_total_general_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                    <TableRow>
 
-                    <TextView
-                        android:id="@+id/taxi_total_general_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
 
-                    <TextView
-                        android:id="@+id/taxi_total_general_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-                </TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💳Tarjeta"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_tarjeta_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_tarjeta_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_tarjeta_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <!-- Fila: Efectivo -->
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💵Efectivo"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_efectivo_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_efectivo_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/taxi_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <!-- Fila: Total -->
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💰Total"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/taxi_total_general_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/taxi_total_general_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/taxi_total_general_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+                    </TableRow>
 
 
-            </TableLayout>
+                </TableLayout>
 
-        </LinearLayout>
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/RadiotaxiInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-
-        <LinearLayout
-            android:id="@+id/RadiotaxiInfoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-
-
-
-
-            <!-- Radio Taxi ___________________________________________________________ -->
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shrinkColumns="1"
-                android:stretchColumns="1">
-                <TextView
+                <!-- Radio Taxi ___________________________________________________________ -->
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="16dp"
-                    android:text="Radio Taxi"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-                <TableRow>
+                    android:shrinkColumns="1"
+                    android:stretchColumns="1">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💳Tarjeta"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_tarjeta_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_tarjeta_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_tarjeta_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💵Efectivo"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_efectivo_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_efectivo_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_efectivo_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="📞Abona"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_abonado_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_abonado_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_abonado_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="❌Retorno"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_retorno_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_retorno_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/radiotaxi_retorno_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="💰Total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:text="Radio Taxi"
                         android:textColor="@android:color/black"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/radiotaxi_total_info_diario"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                    <TableRow>
 
-                    <TextView
-                        android:id="@+id/radiotaxi_total_info_semanal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
 
-                    <TextView
-                        android:id="@+id/radiotaxi_total_info_mensual"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:padding="8dp"
-                        android:text="0,00"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </TableRow>
 
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💳Tarjeta"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_tarjeta_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_tarjeta_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_tarjeta_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💵Efectivo"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_efectivo_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_efectivo_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📞Abona"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_abonado_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_abonado_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_abonado_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="❌Retorno"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_retorno_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_retorno_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_retorno_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💰Total"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_total_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_total_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/radiotaxi_total_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/uberiInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -489,6 +503,7 @@
                     android:layout_height="wrap_content"
                     android:shrinkColumns="1"
                     android:stretchColumns="1">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -497,13 +512,52 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                     <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <TableRow>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:padding="8dp"
                             android:text="💳Tarjeta"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_tarjeta_info_diario"
                             android:layout_width="0dp"
@@ -511,6 +565,7 @@
                             android:padding="8dp"
                             android:text="0,00"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_tarjeta_info_semanal"
                             android:layout_width="0dp"
@@ -518,6 +573,7 @@
                             android:padding="8dp"
                             android:text="0,00"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_tarjeta_info_mensual"
                             android:layout_width="0dp"
@@ -528,12 +584,14 @@
                     </TableRow>
 
                     <TableRow>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:padding="8dp"
                             android:text="💵Efectivo"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_efectivo_info_diario"
                             android:layout_width="0dp"
@@ -541,6 +599,7 @@
                             android:padding="8dp"
                             android:text="0,00"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_efectivo_info_semanal"
                             android:layout_width="0dp"
@@ -548,6 +607,7 @@
                             android:padding="8dp"
                             android:text="0,00"
                             android:textColor="@android:color/black" />
+
                         <TextView
                             android:id="@+id/uber_efectivo_info_mensual"
                             android:layout_width="0dp"
@@ -558,6 +618,7 @@
                     </TableRow>
 
                     <TableRow>
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -565,6 +626,7 @@
                             android:text="💰Total"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/uber_total_info_diario"
                             android:layout_width="0dp"
@@ -573,6 +635,7 @@
                             android:text="0,00"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/uber_total_info_semanal"
                             android:layout_width="0dp"
@@ -581,6 +644,7 @@
                             android:text="0,00"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/uber_total_info_mensual"
                             android:layout_width="0dp"
@@ -593,22 +657,12 @@
                 </TableLayout>
             </LinearLayout>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
             <LinearLayout
                 android:id="@+id/boltiInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="25dp"
                 android:visibility="gone">
 
                 <!-- Bolt ___________________________________________________________ -->
@@ -617,6 +671,7 @@
                     android:layout_height="wrap_content"
                     android:shrinkColumns="1"
                     android:stretchColumns="1">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -625,46 +680,158 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💳Tarjeta" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_tarjeta_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_tarjeta_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_tarjeta_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💵Efectivo" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_efectivo_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_efectivo_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/bolt_efectivo_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💳Tarjeta"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_tarjeta_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_tarjeta_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_tarjeta_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💰Total" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/bolt_total_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/bolt_total_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/bolt_total_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💵Efectivo"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_efectivo_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_efectivo_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/bolt_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💰Total"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/bolt_total_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/bolt_total_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/bolt_total_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
                     </TableRow>
                 </TableLayout>
 
             </LinearLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
 
             <LinearLayout
                 android:id="@+id/cabifyiInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="25dp"
                 android:visibility="gone">
 
                 <!-- Cabify _________________________________________________________ -->
@@ -673,6 +840,7 @@
                     android:layout_height="wrap_content"
                     android:shrinkColumns="1"
                     android:stretchColumns="1">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -681,25 +849,147 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💳Tarjeta" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_tarjeta_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_tarjeta_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_tarjeta_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💵Efectivo" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_efectivo_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_efectivo_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/cabify_efectivo_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💳Tarjeta"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_tarjeta_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_tarjeta_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_tarjeta_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💰Total" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/cabify_total_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/cabify_total_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/cabify_total_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💵Efectivo"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_efectivo_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_efectivo_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/cabify_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💰Total"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cabify_total_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cabify_total_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cabify_total_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -708,14 +998,16 @@
                 android:id="@+id/totalesdia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:orientation="vertical">
 
-                <!-- Cabify _________________________________________________________ -->
+                <!-- Resume _________________________________________________________ -->
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:shrinkColumns="1"
                     android:stretchColumns="1">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -725,25 +1017,181 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💳Tarjeta" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_tarjeta_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_tarjeta_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_tarjeta_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Dia"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Semana"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="Mes"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💵Efectivo" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_efectivo_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_efectivo_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
-                        <TextView android:id="@+id/resumen_efectivo_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💳Tarjeta"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_tarjeta_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_tarjeta_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_tarjeta_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                     <TableRow>
-                        <TextView android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="💰Total" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/resumen_total_info_diario" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/resumen_total_info_semanal" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
-                        <TextView android:id="@+id/resumen_total_info_mensual" android:layout_width="0dp" android:layout_weight="1" android:padding="8dp" android:text="0,00" android:textColor="@android:color/black" android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💵Efectivo"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_efectivo_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_efectivo_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resumen_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📞Abona"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resume_abonado_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resume_abonado_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/resume_abonado_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="💰Total"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/resumen_total_info_diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/resumen_total_info_semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/resumen_total_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
                     </TableRow>
                 </TableLayout>
             </LinearLayout>

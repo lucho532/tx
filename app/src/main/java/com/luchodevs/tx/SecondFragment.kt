@@ -94,7 +94,7 @@ class SecondFragment : Fragment() {
             movimientos = DatabaseClient.getInstance(requireContext())
                 .appDatabase
                 .movimientosDao()
-                .getMovimientosByFecha(fechaSeleccionada)
+                .getMovimientosByFechaCompletaDesc(fechaSeleccionada)
 
             activity?.runOnUiThread {
                 movimientosAdapter = MovimientoAdapter(

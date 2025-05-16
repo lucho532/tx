@@ -18,11 +18,11 @@ class MovimientoAdapter(
 
     inner class MovimientoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvFecha: TextView = view.findViewById(R.id.tvFecha)
+        val tvFechaServicio: TextView = view.findViewById(R.id.tvFechaServicio)
         val tvValor: TextView = view.findViewById(R.id.tvValor)
         val tipo: TextView = view.findViewById(R.id.tipo)
         val propina: TextView = view.findViewById(R.id.propina)
         val tvMetodoDePago: TextView = view.findViewById(R.id.tvMetodoDePago)
-        val tvHora: TextView = view.findViewById(R.id.tvHora)
         val btnEditar: Button = view.findViewById(R.id.btn_editar)
         val btnEliminar: Button = view.findViewById(R.id.btn_eliminar)
     }
@@ -34,12 +34,13 @@ class MovimientoAdapter(
 
     override fun onBindViewHolder(holder: MovimientoViewHolder, position: Int) {
         val movimiento = movimientos[position]
-        holder.tvFecha.text = "Fecha: ${movimiento.fecha}"
+        holder.tvFecha.text = "Fecha Jornada: ${movimiento.fecha}"
+        holder.tvFechaServicio.text = "Fecha Servicio: ${movimiento.fechaHoraCompleta}"
         holder.tvValor.text = "Valor: ${movimiento.valor}"
         holder.propina.text = "Propina: ${"%.2f".format(movimiento.propina)}"
         holder.tipo.text= "Servicio de: ${movimiento.tipo}"
         holder.tvMetodoDePago.text = "Método de Pago: ${movimiento.metodoDePago}"
-        holder.tvHora.text = "Hora: ${movimiento.hora}"
+
 
         holder.btnEditar.setOnClickListener {
             onEditClick(movimiento)

@@ -352,9 +352,7 @@ class MainFragment : Fragment() {
                     }
 
                     tvUltimoMovimiento.text = """
-                    Último movimiento:
-                    Fecha: ${ultimo.fecha}
-                    Hora: $horaMostrada
+                    Fecha: ${ultimo.fechaHoraCompleta}
                     Valor: ${ultimo.valor}
                     Propina: ${"%.2f".format(ultimo.propina)}
                     Pago: ${ultimo.metodoDePago}

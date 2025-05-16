@@ -59,6 +59,10 @@ class FirstFragment : Fragment() {
     private lateinit var resumenefectivomensual: TextView
     private lateinit var resumentotalmensual: TextView
 
+    private lateinit var resumenAbonadoDiario: TextView
+    private lateinit var resumenAbonadoSemana: TextView
+    private lateinit var resumenAbonadomensual: TextView
+
 
     private var fecha: String? = null
 
@@ -103,6 +107,9 @@ class FirstFragment : Fragment() {
         resumenefectivomensual = root.findViewById(R.id.resumen_efectivo_info_mensual)
         resumentotalmensual = root.findViewById(R.id.resumen_total_info_mensual)
 
+        resumenAbonadoDiario = root.findViewById(R.id.resume_abonado_info_diario)
+        resumenAbonadoSemana = root.findViewById(R.id.resume_abonado_info_semanal)
+        resumenAbonadomensual = root.findViewById(R.id.resume_abonado_info_mensual)
 
         totalDiaInfo = root.findViewById(R.id.total_dia_info)
         totalSemanalInfo = root.findViewById(R.id.total_semanal_info)
@@ -254,11 +261,13 @@ class FirstFragment : Fragment() {
                 // Cálculo del resumen general del día
                 val totalTarjeta = resultadosPorTipo.values.sumOf { it["Tarjeta"] ?: 0.0 }
                 val totalEfectivo = resultadosPorTipo.values.sumOf { it["Efectivo"] ?: 0.0 }
+                val totalAbonado = resultadosPorTipo.values.sumOf { it["Abonado"] ?: 0.0 }
                 val totalGeneral = resultadosPorTipo.values.sumOf { it.values.sum() }
 
                 // Setear los TextViews de resumen diario
                 resumentarjetadiario.text = "%.2f".format(totalTarjeta)
                 resumenefectivodiario.text = "%.2f".format(totalEfectivo)
+                resumenAbonadoDiario.text = "%.2f".format(totalAbonado)
                 resumentotaldiario.text = "%.2f".format(totalGeneral)
 
 
@@ -317,11 +326,13 @@ class FirstFragment : Fragment() {
 
                     val totalTarjetaSemanal = resultadosPorTipoSemana.values.sumOf { it["Tarjeta"] ?: 0.0 }
                     val totalEfectivoSemanal = resultadosPorTipoSemana.values.sumOf { it["Efectivo"] ?: 0.0 }
-                    val totalSemanal = totalTarjetaSemanal + totalEfectivoSemanal
-
+                    val totalAbonadoSemanal = resultadosPorTipoSemana.values.sumOf { it["Abonado"] ?: 0.0 }
+                    val totalSemanal = totalTarjetaSemanal + totalEfectivoSemanal + totalAbonadoSemanal
+                    val totalAbonadoMes =  mes.filter { it.metodoDePago == "Abonado" }.sumOf { it.valor }
                     val efectivoMensual = mes.filter { it.metodoDePago == "Efectivo" }.sumOf { it.valor }
                     val tarjetaMensual = mes.filter { it.metodoDePago == "Tarjeta" }.sumOf { it.valor }
-                    val totalMensual = efectivoMensual + tarjetaMensual
+
+                    val totalMensual = efectivoMensual + tarjetaMensual + totalAbonadoMes
                     val propinasMes = mes.sumOf { it.propina }
 
 
@@ -336,6 +347,8 @@ class FirstFragment : Fragment() {
                         resumentarjetamensual.text = "%.2f".format(tarjetaMensual)
                         resumenefectivomensual.text = "%.2f".format(efectivoMensual)
                         resumentotalmensual.text = "%.2f".format(totalMensual)
+                        resumenAbonadoSemana.text = "%.2f".format(totalAbonadoSemanal)
+                        resumenAbonadomensual.text = "%.2f".format(totalAbonadoMes)
                     }
                 } catch (e: Exception) {
                     Log.e("FirstFragment", "Error al parsear la fecha del argumento", e)

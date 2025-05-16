@@ -20,6 +20,7 @@ import com.luchodevs.tx.database.DatabaseClient;
 import com.luchodevs.tx.entity.Movimiento;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -52,40 +53,46 @@ public class productividad extends DialogFragment {
                     .getInstance(requireContext())
                     .getAppDatabase()
                     .movimientosDao()
-                    .getMovimientosByFecha(fechaSeleccionada); // Asegúrate de tener este método implementado
+                    .getMovimientosByFechaCompleta(fechaSeleccionada); // Asegúrate de tener este método implementado
 
             requireActivity().runOnUiThread(() -> mostrarGraficoProduccionPorHora(movimientos));
         });
     }
 
     private void mostrarGraficoProduccionPorHora(List<Movimiento> movimientos) {
-        int[] produccionPorHora = new int[24];
+        LinkedHashMap<String, Float> produccionPorHora = new LinkedHashMap<>();
 
         for (Movimiento mov : movimientos) {
             if (mov.getHora() == null) continue;
 
             try {
-                int hora = Integer.parseInt(mov.getHora().split(":")[0]);
-                produccionPorHora[hora] += mov.getValor();
+                String horaLabel = mov.getHora().split(":")[0] + "h";
+                double valor = mov.getValor();
+
+                if (valor > 0) {
+                    // Acumula el valor por hora, respetando el orden de inserción
+                    produccionPorHora.put(horaLabel,
+                            (float) (produccionPorHora.getOrDefault(horaLabel, 0f) + valor));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        List<BarEntry> entries = new ArrayList<>();
-        List<String> horasLabels = new ArrayList<>();
-
-        for (int i = 0; i < produccionPorHora.length; i++) {
-            if (produccionPorHora[i] > 0) {
-                entries.add(new BarEntry(entries.size(), produccionPorHora[i]));
-                horasLabels.add(i + "h");
-            }
-        }
-
-        if (entries.isEmpty()) {
+        if (produccionPorHora.isEmpty()) {
             barChart.clear();
             barChart.setNoDataText("No hay datos para mostrar.");
             return;
+        }
+
+        List<BarEntry> entries = new ArrayList<>();
+        List<String> horasLabels = new ArrayList<>();
+        int index = 0;
+
+        for (String hora : produccionPorHora.keySet()) {
+            entries.add(new BarEntry(index, produccionPorHora.get(hora)));
+            horasLabels.add(hora);
+            index++;
         }
 
         BarDataSet dataSet = new BarDataSet(entries, "Producción por hora");
@@ -107,6 +114,7 @@ public class productividad extends DialogFragment {
         barChart.getDescription().setText("Producido por hora");
         barChart.invalidate(); // Refresca el gráfico
     }
+
 
 
     private List<String> getHoras() {

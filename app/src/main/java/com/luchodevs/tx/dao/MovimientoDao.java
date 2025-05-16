@@ -31,6 +31,12 @@ public interface MovimientoDao {
     @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND valor > 0.00 ORDER BY fechaHoraCompleta DESC LIMIT 1")
     Movimiento obtenerUltimoMovimientoFechaCompleta(String fecha);
 
+    @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND valor > 0.00 ORDER BY fechaHoraCompleta ASC")
+    List<Movimiento> getMovimientosByFechaCompleta(String fecha);
+
+    @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND valor > 0.00 ORDER BY fechaHoraCompleta DESC")
+    List<Movimiento> getMovimientosByFechaCompletaDesc(String fecha);
+
     @Query("SELECT * FROM movimiento WHERE fecha = :fecha AND tipo = 'Final de Jornada' LIMIT 1")
     Movimiento obtenerFinalDeJornada(String fecha);
     @Query("SELECT SUM(propina) FROM movimiento WHERE fecha = :fecha")

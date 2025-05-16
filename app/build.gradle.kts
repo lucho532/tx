@@ -12,8 +12,8 @@ android {
         applicationId = "com.luchodevs.tx"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "4.0.0"
+        versionCode = 7
+        versionName = "7.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
