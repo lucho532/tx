@@ -16,7 +16,50 @@ import java.util.concurrent.Executors
 
 class FirstFragment : Fragment() {
 
-    private lateinit var tarjetaInfoTaxi: TextView
+
+
+        private lateinit var taxiTarjetaSemana : TextView
+        private lateinit var taxiEfectivoSemana : TextView
+        private lateinit var taxiTotalSemana : TextView
+        private lateinit var taxiTarjetaMes : TextView
+        private lateinit var taxiEfectivoMes : TextView
+        private lateinit var taxiTotalMes : TextView
+
+
+        private lateinit var radioTaxiTarjetaSemana : TextView
+        private lateinit var radioTaxiEfectivoSemana : TextView
+        private lateinit var radioTaxiAbonadoSemana : TextView
+        private lateinit var radioTaxiTotalSemana : TextView
+
+        private lateinit var radioTaxiTarjetaMes : TextView
+        private lateinit var radioTaxiEfectivoMes : TextView
+        private lateinit var radioTaxiAbonadoMes : TextView
+        private lateinit var radioTaxiTotalMes : TextView
+
+
+        private lateinit var uberTarjetaSemana : TextView
+        private lateinit var uberEfectivoSemana : TextView
+        private lateinit var uberTotalSemana : TextView
+        private lateinit var uberTarjetaMes : TextView
+        private lateinit var uberEfectivoMes : TextView
+        private lateinit var uberTotalMes : TextView
+
+
+        private lateinit var boltTarjetaSemana : TextView
+        private lateinit var boltEfectivoSemana : TextView
+        private lateinit var boltTotalSemana : TextView
+        private lateinit var boltTarjetaMes : TextView
+        private lateinit var boltEfectivoMes : TextView
+        private lateinit var boltTotalMes : TextView
+
+        private lateinit var cabifyTarjetaSemana : TextView
+        private lateinit var cabifyEfectivoSemana : TextView
+        private lateinit var cabifyTotalSemana : TextView
+        private lateinit var cabifyTarjetaMes : TextView
+        private lateinit var cabifyEfectivoMes : TextView
+        private lateinit var cabifyTotalMes : TextView
+
+    private lateinit var tarjetaInfoTaxi : TextView
     private lateinit var efectivoInfoTaxi: TextView
     private lateinit var totalGeneralInfoTaxi: TextView
 
@@ -42,10 +85,6 @@ class FirstFragment : Fragment() {
     private lateinit var efectivoInfoCabify: TextView
     private lateinit var totalGeneralInfoCabify: TextView
 
-    private lateinit var totalDiaInfo: TextView
-    private lateinit var totalSemanalInfo: TextView
-    private lateinit var totalMensualInfo: TextView
-    private lateinit var totalPropinas: TextView
 
     private lateinit var resumentarjetadiario: TextView
     private lateinit var resumenefectivodiario: TextView
@@ -73,6 +112,8 @@ class FirstFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_first, container, false)
 
         // Referencias UI
+
+        // Totales Diarios
         tarjetaInfoTaxi = root.findViewById(R.id.taxi_tarjeta_info_diario)
         efectivoInfoTaxi = root.findViewById(R.id.taxi_efectivo_info_diario)
         totalGeneralInfoTaxi = root.findViewById(R.id.taxi_total_general_info_diario)
@@ -95,6 +136,50 @@ class FirstFragment : Fragment() {
         efectivoInfoCabify = root.findViewById(R.id.cabify_efectivo_info_diario)
         totalGeneralInfoCabify = root.findViewById(R.id.cabify_total_info_diario)
 
+        //Totales Semanales
+        taxiTarjetaSemana = root.findViewById(R.id.taxi_tarjeta_info_semanal)
+        taxiEfectivoSemana = root.findViewById(R.id.taxi_efectivo_info_semanal)
+        taxiTotalSemana = root.findViewById(R.id.taxi_total_general_info_semanal)
+        taxiTarjetaMes = root.findViewById(R.id.taxi_tarjeta_info_mensual)
+        taxiEfectivoMes = root.findViewById(R.id.taxi_efectivo_info_mensual)
+        taxiTotalMes = root.findViewById(R.id.taxi_total_general_info_mensual)
+
+
+        radioTaxiTarjetaSemana = root.findViewById(R.id.radiotaxi_tarjeta_info_semanal)
+        radioTaxiEfectivoSemana = root.findViewById(R.id.radiotaxi_efectivo_info_semanal)
+        radioTaxiAbonadoSemana = root.findViewById(R.id.radiotaxi_abonado_info_semanal)
+        radioTaxiTotalSemana = root.findViewById(R.id.radiotaxi_total_info_semanal)
+
+        radioTaxiTarjetaMes = root.findViewById(R.id.radiotaxi_tarjeta_info_mensual)
+        radioTaxiEfectivoMes = root.findViewById(R.id.radiotaxi_efectivo_info_mensual)
+        radioTaxiAbonadoMes = root.findViewById(R.id.radiotaxi_abonado_info_mensual)
+        radioTaxiTotalMes = root.findViewById(R.id.radiotaxi_total_info_mensual)
+
+
+        uberTarjetaSemana = root.findViewById(R.id.uber_tarjeta_info_semanal)
+        uberEfectivoSemana = root.findViewById(R.id.uber_efectivo_info_semanal)
+        uberTotalSemana = root.findViewById(R.id.uber_total_info_semanal)
+        uberTarjetaMes = root.findViewById(R.id.uber_tarjeta_info_mensual)
+        uberEfectivoMes = root.findViewById(R.id.uber_efectivo_info_mensual)
+        uberTotalMes = root.findViewById(R.id.uber_total_info_mensual)
+
+
+        boltTarjetaSemana = root.findViewById(R.id.bolt_tarjeta_info_semanal)
+        boltEfectivoSemana = root.findViewById(R.id.bolt_efectivo_info_semanal)
+        boltTotalSemana = root.findViewById(R.id.bolt_total_info_semanal)
+        boltTarjetaMes = root.findViewById(R.id.bolt_tarjeta_info_mensual)
+        boltEfectivoMes = root.findViewById(R.id.bolt_efectivo_info_mensual)
+        boltTotalMes = root.findViewById(R.id.bolt_total_info_mensual)
+
+        cabifyTarjetaSemana = root.findViewById(R.id.cabify_tarjeta_info_semanal)
+        cabifyEfectivoSemana = root.findViewById(R.id.cabify_efectivo_info_semanal)
+        cabifyTotalSemana = root.findViewById(R.id.cabify_total_info_semanal)
+        cabifyTarjetaMes = root.findViewById(R.id.cabify_tarjeta_info_mensual)
+        cabifyEfectivoMes = root.findViewById(R.id.cabify_efectivo_info_mensual)
+        cabifyTotalMes = root.findViewById(R.id.cabify_total_info_mensual)
+
+
+        // Totales Generales
         resumentarjetadiario = root.findViewById(R.id.resumen_tarjeta_diario)
         resumenefectivodiario = root.findViewById(R.id.resumen_efectivo_info_diario)
         resumentotaldiario = root.findViewById(R.id.resumen_total_info_diario)
@@ -111,10 +196,6 @@ class FirstFragment : Fragment() {
         resumenAbonadoSemana = root.findViewById(R.id.resume_abonado_info_semanal)
         resumenAbonadomensual = root.findViewById(R.id.resume_abonado_info_mensual)
 
-        totalDiaInfo = root.findViewById(R.id.total_dia_info)
-        totalSemanalInfo = root.findViewById(R.id.total_semanal_info)
-        totalMensualInfo = root.findViewById(R.id.total_mensual_info)
-        totalPropinas = root.findViewById(R.id.total_propinas)
 
         // Botón volver
         val back = root.findViewById<Button>(R.id.btn_volver)
@@ -297,64 +378,127 @@ class FirstFragment : Fragment() {
                 try {
                     val fechaSeleccionada = java.time.LocalDate.parse(fechaStr, formatterEntrada)
 
-                    val inicioSemana =fechaSeleccionada.with(DayOfWeek.MONDAY).format(formatterSalida)
+                    val inicioSemana = fechaSeleccionada.with(DayOfWeek.MONDAY).format(formatterSalida)
                     val finSemana = fechaSeleccionada.with(DayOfWeek.SUNDAY).format(formatterSalida)
 
                     val inicioMes = fechaSeleccionada.withDayOfMonth(1).format(formatterSalida)
-                    val finMes = fechaSeleccionada.withDayOfMonth(fechaSeleccionada.lengthOfMonth())
-                        .format(formatterSalida)
+                    val finMes = fechaSeleccionada.withDayOfMonth(fechaSeleccionada.lengthOfMonth()).format(formatterSalida)
+
                     val dia = dao.getMovimientosByFecha(fechaStr)
                     val semana = dao.getMovimientosEntreFechas2(inicioSemana, finSemana)
                     val mes = dao.getMovimientosEntreFechas(inicioMes, finMes)
 
-                    val totalDia = dia.sumOf{ it.valor }
+                    // Totales generales
+                    val totalDia = dia.sumOf { it.valor }
                     val totalSemana = semana.sumOf { it.valor }
                     val totalMes = mes.sumOf { it.valor }
 
-
-                    val agrupadoPorTipoSemana = semana.groupBy { it.tipo ?: "Desconocido" }
-
-                    val resultadosPorTipoSemana = mutableMapOf<String, Map<String, Double>>()
-
-                    for ((tipo, listaPorTipo) in agrupadoPorTipoSemana) {
-                        val agrupadoPorMetodo = listaPorTipo.groupBy { it.metodoDePago }
-                        val totalesPorMetodo = agrupadoPorMetodo.mapValues { (_, lista) ->
-                            lista.sumOf { it.valor }
-                        }
-                        resultadosPorTipoSemana[tipo] = totalesPorMetodo
-                    }
-
-                    val totalTarjetaSemanal = resultadosPorTipoSemana.values.sumOf { it["Tarjeta"] ?: 0.0 }
-                    val totalEfectivoSemanal = resultadosPorTipoSemana.values.sumOf { it["Efectivo"] ?: 0.0 }
-                    val totalAbonadoSemanal = resultadosPorTipoSemana.values.sumOf { it["Abonado"] ?: 0.0 }
-                    val totalSemanal = totalTarjetaSemanal + totalEfectivoSemanal + totalAbonadoSemanal
-                    val totalAbonadoMes =  mes.filter { it.metodoDePago == "Abonado" }.sumOf { it.valor }
+                    val totalAbonadoMes = mes.filter { it.metodoDePago == "Abonado" }.sumOf { it.valor }
                     val efectivoMensual = mes.filter { it.metodoDePago == "Efectivo" }.sumOf { it.valor }
                     val tarjetaMensual = mes.filter { it.metodoDePago == "Tarjeta" }.sumOf { it.valor }
 
-                    val totalMensual = efectivoMensual + tarjetaMensual + totalAbonadoMes
                     val propinasMes = mes.sumOf { it.propina }
 
+                    // Agrupaciones por tipo y método de pago
+                    val resumenPorTipoSemana = semana.groupBy { it.tipo ?: "Desconocido" }.mapValues { (_, lista) ->
+                        lista.groupBy { it.metodoDePago }.mapValues { it.value.sumOf { m -> m.valor } }
+                    }
+
+                    val resumenPorTipoMes = mes.groupBy { it.tipo ?: "Desconocido" }.mapValues { (_, lista) ->
+                        lista.groupBy { it.metodoDePago }.mapValues { it.value.sumOf { m -> m.valor } }
+                    }
+
+                    // Totales generales por método
+                    val totalTarjetaSemanal = resumenPorTipoSemana.values.sumOf { it["Tarjeta"] ?: 0.0 }
+                    val totalEfectivoSemanal = resumenPorTipoSemana.values.sumOf { it["Efectivo"] ?: 0.0 }
+                    val totalAbonadoSemanal = resumenPorTipoSemana["Radio Taxi"]?.get("Abonado") ?: 0.0
+                    val totalSemanal = totalTarjetaSemanal + totalEfectivoSemanal + totalAbonadoSemanal
+
+                    val totalMensual = tarjetaMensual + efectivoMensual + totalAbonadoMes
+
+                    val tiposServicios = listOf("Taxi", "Radio Taxi", "Uber", "Bolt", "Cabify")
 
                     activity?.runOnUiThread {
-                        totalDiaInfo.text = "${"%.2f".format(totalDia)}"
-                        totalSemanalInfo.text = "${"%.2f".format(totalSemana)}"
-                        totalMensualInfo.text = "${"%.2f".format(totalMes)}"
-                        totalPropinas.text = "${"%.2f".format(propinasMes)}"
-                        resumentarjetasemana.text = "${"%.2f".format(totalTarjetaSemanal)}"
-                        resumenefectivosemana.text = "${"%.2f".format(totalEfectivoSemanal)}"
-                        resumentotalsemana.text = "${"%.2f".format(totalSemanal)}"
+                        resumentarjetasemana.text = "%.2f".format(totalTarjetaSemanal)
+                        resumenefectivosemana.text = "%.2f".format(totalEfectivoSemanal)
+                        resumenAbonadoSemana.text = "%.2f".format(totalAbonadoSemanal)
+                        resumentotalsemana.text = "%.2f".format(totalSemanal)
+
                         resumentarjetamensual.text = "%.2f".format(tarjetaMensual)
                         resumenefectivomensual.text = "%.2f".format(efectivoMensual)
-                        resumentotalmensual.text = "%.2f".format(totalMensual)
-                        resumenAbonadoSemana.text = "%.2f".format(totalAbonadoSemanal)
                         resumenAbonadomensual.text = "%.2f".format(totalAbonadoMes)
+                        resumentotalmensual.text = "%.2f".format(totalMensual)
+
+                        // Totales por tipo de servicio
+                        for (tipo in tiposServicios) {
+                            val semanaTipo = resumenPorTipoSemana[tipo] ?: emptyMap()
+                            val mesTipo = resumenPorTipoMes[tipo] ?: emptyMap()
+
+                            val tarjetaSemana = semanaTipo["Tarjeta"] ?: 0.0
+                            val efectivoSemana = semanaTipo["Efectivo"] ?: 0.0
+                            val abonadoSemana = if (tipo == "Radio Taxi") semanaTipo["Abonado"] ?: 0.0 else 0.0
+                            val totalSemanaTipo = tarjetaSemana + efectivoSemana + abonadoSemana
+
+                            val tarjetaMes = mesTipo["Tarjeta"] ?: 0.0
+                            val efectivoMes = mesTipo["Efectivo"] ?: 0.0
+                            val abonadoMes = if (tipo == "Radio Taxi") mesTipo["Abonado"] ?: 0.0 else 0.0
+                            val totalMesTipo = tarjetaMes + efectivoMes + abonadoMes
+
+                            // Asegúrate de tener estos IDs definidos en tu layout
+                            when (tipo) {
+                                "Taxi" -> {
+                                    taxiTarjetaSemana.text = "%.2f".format(tarjetaSemana)
+                                    taxiEfectivoSemana.text = "%.2f".format(efectivoSemana)
+                                    taxiTotalSemana.text = "%.2f".format(totalSemanaTipo)
+                                    taxiTarjetaMes.text = "%.2f".format(tarjetaMes)
+                                    taxiEfectivoMes.text = "%.2f".format(efectivoMes)
+                                    taxiTotalMes.text = "%.2f".format(totalMesTipo)
+                                }
+                                "Radio Taxi" -> {
+                                    radioTaxiTarjetaSemana.text = "%.2f".format(tarjetaSemana)
+                                    radioTaxiEfectivoSemana.text = "%.2f".format(efectivoSemana)
+                                    radioTaxiAbonadoSemana.text = "%.2f".format(abonadoSemana)
+                                    radioTaxiTotalSemana.text = "%.2f".format(totalSemanaTipo)
+
+                                    radioTaxiTarjetaMes.text = "%.2f".format(tarjetaMes)
+                                    radioTaxiEfectivoMes.text = "%.2f".format(efectivoMes)
+                                    radioTaxiAbonadoMes.text = "%.2f".format(abonadoMes)
+                                    radioTaxiTotalMes.text = "%.2f".format(totalMesTipo)
+                                }
+                                "Uber" -> {
+                                    uberTarjetaSemana.text = "%.2f".format(tarjetaSemana)
+                                    uberEfectivoSemana.text = "%.2f".format(efectivoSemana)
+                                    uberTotalSemana.text = "%.2f".format(totalSemanaTipo)
+                                    uberTarjetaMes.text = "%.2f".format(tarjetaMes)
+                                    uberEfectivoMes.text = "%.2f".format(efectivoMes)
+                                    uberTotalMes.text = "%.2f".format(totalMesTipo)
+                                }
+                                "Bolt" -> {
+                                    boltTarjetaSemana.text = "%.2f".format(tarjetaSemana)
+                                    boltEfectivoSemana.text = "%.2f".format(efectivoSemana)
+                                    boltTotalSemana.text = "%.2f".format(totalSemanaTipo)
+                                    boltTarjetaMes.text = "%.2f".format(tarjetaMes)
+                                    boltEfectivoMes.text = "%.2f".format(efectivoMes)
+                                    boltTotalMes.text = "%.2f".format(totalMesTipo)
+                                }
+                                "Cabify" -> {
+                                    cabifyTarjetaSemana.text = "%.2f".format(tarjetaSemana)
+                                    cabifyEfectivoSemana.text = "%.2f".format(efectivoSemana)
+                                    cabifyTotalSemana.text = "%.2f".format(totalSemanaTipo)
+                                    cabifyTarjetaMes.text = "%.2f".format(tarjetaMes)
+                                    cabifyEfectivoMes.text = "%.2f".format(efectivoMes)
+                                    cabifyTotalMes.text = "%.2f".format(totalMesTipo)
+                                }
+                            }
+                        }
                     }
+
                 } catch (e: Exception) {
                     Log.e("FirstFragment", "Error al parsear la fecha del argumento", e)
                 }
             }
         }
     }
+
 
 }

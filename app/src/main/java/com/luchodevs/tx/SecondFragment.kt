@@ -1,6 +1,7 @@
 package com.luchodevs.tx
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -63,29 +64,48 @@ class SecondFragment : Fragment() {
                     .getMovimientosByFecha(fechaSeleccionada)
 
                 if (movimientos != null && movimientos.isNotEmpty()) {
-                    com.luchodevs.tx.generador.generarArchivoMovimientos(
-                        requireContext(),
-                        movimientos,
-                        fechaSeleccionada
-                    )
-                    Toast.makeText(requireContext(), "Archivo generado", Toast.LENGTH_SHORT).show()
+                    try {
+                        // Intentar generar y abrir el archivo
+                        com.luchodevs.tx.generador.generarArchivoMovimientos(
+                            requireContext(),
+                            movimientos,
+                            fechaSeleccionada
+                        )
+
+                        activity?.runOnUiThread {
+                            Toast.makeText(requireContext(), "Archivo generado exitosamente", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: ActivityNotFoundException) {
+                        activity?.runOnUiThread {
+                            Toast.makeText(
+                                requireContext(),
+                                "No se encontró una aplicación compatible. Por favor, instala Microsoft Excel o una app para abrir archivos .xlsx.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "No hay movimientos para esta fecha.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    activity?.runOnUiThread {
+                        Toast.makeText(
+                            requireContext(),
+                            "No hay movimientos para esta fecha.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(
-                    requireContext(),
-                    "Error generando archivo: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                activity?.runOnUiThread {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error generando archivo: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }
+
 
     private fun cargarMovimientos() {
         val fechaSeleccionada = fecha ?: return

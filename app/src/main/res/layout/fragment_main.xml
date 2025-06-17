@@ -132,7 +132,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Taxi"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:checked="true"/>
 
                     <RadioButton
                         android:id="@+id/servicio_radio_taxi"
@@ -177,7 +178,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tarjeta"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:checked="true"/>
 
                     <RadioButton
                         android:id="@+id/pago_efectivo_radio"

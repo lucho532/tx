@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-
+        val prefs = requireContext().getSharedPreferences("preferencias_visibilidad", 0)
 
         // Referencias a los elementos de la vista
         val etFecha = root.findViewById<EditText>(R.id.etFecha)
@@ -78,7 +78,17 @@ class MainFragment : Fragment() {
             3 to R.id.retorno
         )
 
+        for ((i, id) in serviciosMap) {
+            val visible = prefs.getBoolean("servicio_$i", i == 0 || i == 1) // Por defecto visibles los dos primeros
+            root.findViewById<RadioButton>(id).visibility = if (visible) View.VISIBLE else View.GONE
+            checksServicios[i] = visible
+        }
 
+        for ((i, id) in pagosMap) {
+            val visible = prefs.getBoolean("pago_$i", i == 0 || i == 1) // Por defecto visibles los dos primeros
+            root.findViewById<RadioButton>(id).visibility = if (visible) View.VISIBLE else View.GONE
+            checksPagos[i] = visible
+        }
         totalGeneralInfo = root.findViewById(R.id.total_general_info)
         totalPropina = root.findViewById(R.id.total_propina)
         tvUltimoMovimiento = root.findViewById(R.id.ultimoAgregado)
@@ -210,6 +220,12 @@ class MainFragment : Fragment() {
                     etCobrado.text.clear()
                     radioGroupPago.clearCheck()
                     radioGroupTipo.clearCheck()
+
+                    // Seleccionar Taxi y Tarjeta por defecto
+                    val radioTaxi = view?.findViewById<RadioButton>(R.id.servicio_taxi)
+                    val radioTarjeta = view?.findViewById<RadioButton>(R.id.pago_tarjeta_radio)
+                    radioTaxi?.isChecked = true
+                    radioTarjeta?.isChecked = true
                 }
             }
         }
@@ -286,22 +302,32 @@ class MainFragment : Fragment() {
                 .setTitle("Configurar visibilidad")
                 .setView(layout)
                 .setPositiveButton("Aceptar") { _, _ ->
+                    val prefs = requireContext().getSharedPreferences("preferencias_visibilidad", 0)
+                    val editor = prefs.edit()
+
                     for ((i, id) in serviciosMap) {
+                        val visible = checksServicios[i]
                         view?.findViewById<RadioButton>(id)?.visibility =
-                            if (checksServicios[i]) View.VISIBLE else View.GONE
+                            if (visible) View.VISIBLE else View.GONE
+                        editor.putBoolean("servicio_$i", visible) // Guardar preferencia
                     }
 
                     view?.findViewById<RadioGroup>(R.id.radioGroupTipo)?.visibility =
                         if (checksServicios.any { it }) View.VISIBLE else View.GONE
 
                     for ((i, id) in pagosMap) {
+                        val visible = checksPagos[i]
                         view?.findViewById<RadioButton>(id)?.visibility =
-                            if (checksPagos[i]) View.VISIBLE else View.GONE
+                            if (visible) View.VISIBLE else View.GONE
+                        editor.putBoolean("pago_$i", visible) // Guardar preferencia
                     }
 
                     view?.findViewById<RadioGroup>(R.id.radioGroupPago)?.visibility =
                         if (checksPagos.any { it }) View.VISIBLE else View.GONE
+
+                    editor.apply() // 👉 guardar los cambios
                 }
+
                 .setNegativeButton("Cancelar", null)
                 .show()
         }

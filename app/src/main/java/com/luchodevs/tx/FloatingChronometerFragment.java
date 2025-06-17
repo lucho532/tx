@@ -41,6 +41,14 @@ public class FloatingChronometerFragment extends DialogFragment {
         public void run() {
             long elapsedTime = System.currentTimeMillis() - startTime;
             chronometerView.setText(formatElapsedTime(elapsedTime));
+
+            // Verificar si llegó a 23:59:59
+            if (elapsedTime >= 82_800_000) {
+                // Finalizar jornada automáticamente
+                finalizarJornada();
+                return; // No seguir el cronómetro
+            }
+
             verificarFinalizacionDesdeWorker();
             handler.postDelayed(this, 1000);
         }

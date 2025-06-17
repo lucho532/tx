@@ -73,9 +73,7 @@ fun abrirArchivoExcel(context: Context, archivo: File) {
     intent.setDataAndType(uri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
-    try {
-        context.startActivity(intent)
-    } catch (e: Exception) {
-        Toast.makeText(context, "No se pudo abrir el archivo.", Toast.LENGTH_SHORT).show()
-    }
+    // ❌ No uses try-catch aquí
+    context.startActivity(intent) // Deja que lance ActivityNotFoundException si no hay app
+
 }
