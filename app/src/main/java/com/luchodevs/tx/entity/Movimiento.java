@@ -10,7 +10,9 @@ public class Movimiento {
     private int id;
     private double valor;
     private String tipo;
+    private String tipoNombre;
     private String metodoDePago;
+    private String metodoNombre;
     private String fecha;
     private String hora;
     private String fechaHoraCompleta;
@@ -19,7 +21,20 @@ public class Movimiento {
     private String horaTotal;
     private double propina;
 
+    public String getTipoNombre() {
+        return tipoNombre;
+    }
 
+    public void setTipoNombre(String tipoNombre) {
+        this.tipoNombre = tipoNombre;
+    }
+    public String getMetodoNombre() {
+        return metodoNombre;
+    }
+
+    public void setMetodoNombre(String metodoNombre) {
+        this.metodoNombre = metodoNombre;
+    }
     public String getTipo() {
         return tipo;
     }
@@ -115,9 +130,12 @@ public class Movimiento {
                 "id=" + id +
                 ", valor=" + valor +
                 ", tipo='" + tipo + '\'' +
+                ", tipoNombre='" + tipoNombre + '\'' +
                 ", metodoDePago='" + metodoDePago + '\'' +
+                ", metodoNombre='" + metodoNombre + '\'' +
                 ", fecha='" + fecha + '\'' +
                 ", hora='" + hora + '\'' +
+                ", fechaHoraCompleta='" + fechaHoraCompleta + '\'' +
                 ", horaInicio='" + horaInicio + '\'' +
                 ", horaFin='" + horaFin + '\'' +
                 ", horaTotal='" + horaTotal + '\'' +

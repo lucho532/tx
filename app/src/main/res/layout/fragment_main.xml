@@ -128,7 +128,7 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/servicio_taxi"
+                        android:id="@+id/servicio_tipo1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Taxi"
@@ -136,14 +136,14 @@
                         android:checked="true"/>
 
                     <RadioButton
-                        android:id="@+id/servicio_radio_taxi"
+                        android:id="@+id/servicio_tipo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Radio Taxi"
+                        android:text="Emisora"
                         android:textSize="16sp"/>
 
                     <RadioButton
-                        android:id="@+id/servicio_uber"
+                        android:id="@+id/servicio_tipo3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Uber"
@@ -151,14 +151,14 @@
                         android:visibility="gone"/>
 
                     <RadioButton
-                        android:id="@+id/servicio_bolt"
+                        android:id="@+id/servicio_tipo4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bolt"
                         android:textSize="16sp"
                         android:visibility="gone"/>
                     <RadioButton
-                        android:id="@+id/servicio_cabify"
+                        android:id="@+id/servicio_tipo5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cabify"
@@ -174,7 +174,7 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/pago_tarjeta_radio"
+                        android:id="@+id/pago_metodo1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tarjeta"
@@ -182,25 +182,25 @@
                         android:checked="true"/>
 
                     <RadioButton
-                        android:id="@+id/pago_efectivo_radio"
+                        android:id="@+id/pago_metodo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Efectivo"
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/pago_abonado_radio"
+                        android:id="@+id/pago_metodo3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Abonado"
+                        android:text="App"
                         android:textSize="16sp"
                         android:visibility="gone"/>
 
                     <RadioButton
-                        android:id="@+id/retorno"
+                        android:id="@+id/pago_metodo4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Retorno"
+                        android:text="Otro"
                         android:textSize="16sp"
                         android:visibility="gone"/>
                 </RadioGroup>
@@ -261,7 +261,14 @@
                     android:id="@+id/total_propina"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="propina: 0.00"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/promedio_general_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="promedio: 0.00"
                     android:textSize="16sp" />
 
 

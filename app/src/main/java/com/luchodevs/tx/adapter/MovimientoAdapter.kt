@@ -38,8 +38,8 @@ class MovimientoAdapter(
         holder.tvFechaServicio.text = "Fecha Servicio: ${movimiento.fechaHoraCompleta}"
         holder.tvValor.text = "Valor: ${movimiento.valor}"
         holder.propina.text = "Propina: ${"%.2f".format(movimiento.propina)}"
-        holder.tipo.text= "Servicio de: ${movimiento.tipo}"
-        holder.tvMetodoDePago.text = "Método de Pago: ${movimiento.metodoDePago}"
+        holder.tipo.text= "Servicio de: ${movimiento.tipoNombre}"
+        holder.tvMetodoDePago.text = "Método de Pago: ${movimiento.metodoNombre}"
 
 
         holder.btnEditar.setOnClickListener {

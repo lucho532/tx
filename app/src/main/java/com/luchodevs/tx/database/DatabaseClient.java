@@ -20,7 +20,7 @@ public class DatabaseClient {
 
         // Crear base de datos con Room
         appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "mi_base_datos")
-                .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_4_5)
                 .build();
 
     }
@@ -32,7 +32,7 @@ public class DatabaseClient {
         return mInstance;
     }
 
-    // 🔑 Este método permite acceder a la base de datos desde otras clases
+
 
 
     public AppDatabase getAppDatabase() {
@@ -40,24 +40,19 @@ public class DatabaseClient {
     }
 
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE movimiento ADD COLUMN horaInicio TEXT");
-            database.execSQL("ALTER TABLE movimiento ADD COLUMN horaFin TEXT");
-            database.execSQL("ALTER TABLE movimiento ADD COLUMN horaTotal TEXT");
-            database.execSQL("ALTER TABLE movimiento ADD COLUMN propina REAL NOT NULL DEFAULT 0.0");
+            // Agregar columna tipoNombre (nombre visible del tipo)
+            database.execSQL("ALTER TABLE movimiento ADD COLUMN tipoNombre TEXT");
 
+            // Agregar columna metodoNombre (nombre visible del método de pago)
+            database.execSQL("ALTER TABLE movimiento ADD COLUMN metodoNombre TEXT");
         }
     };
 
-    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE movimiento ADD COLUMN tipo TEXT");
-
-        }
-    };
 
     static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override

@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.luchodevs.tx.dao.MovimientoDao;
-import com.luchodevs.tx.database.AppDatabase;
 import com.luchodevs.tx.database.DatabaseClient;
 import com.luchodevs.tx.entity.Movimiento;
 
@@ -25,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class FloatingChronometerFragment extends DialogFragment {
 
@@ -39,20 +39,31 @@ public class FloatingChronometerFragment extends DialogFragment {
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            chronometerView.setText(formatElapsedTime(elapsedTime));
-
-            // Verificar si llegó a 23:59:59
-            if (elapsedTime >= 82_800_000) {
-                // Finalizar jornada automáticamente
-                finalizarJornada();
-                return; // No seguir el cronómetro
+            if (!isRunning) {
+                return; // No hacer nada si no está corriendo
             }
 
-            verificarFinalizacionDesdeWorker();
+            long elapsedMillis = System.currentTimeMillis() - startTime;
+
+            int seconds = (int) (elapsedMillis / 1000) % 60;
+            int minutes = (int) ((elapsedMillis / (1000 * 60)) % 60);
+            int hours = (int) (elapsedMillis / (1000 * 60 * 60));
+
+            String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+
+            chronometerView.setText(timeFormatted);
+
+            // Puedes controlar aquí si quieres detener el cronómetro automáticamente al pasar cierto tiempo
+            // Por ejemplo, si quieres que pare al llegar a 24 horas:
+            if (hours >= 24) {
+                finalizarJornada();
+                return;
+            }
+
             handler.postDelayed(this, 1000);
         }
     };
+
 
     @Nullable
     @Override
@@ -77,7 +88,12 @@ public class FloatingChronometerFragment extends DialogFragment {
         btnStart.setOnClickListener(v -> iniciarJornada());
         btnStop.setOnClickListener(v -> finalizarJornada());
 
+        cargarEstadoJornada();
 
+        return view;
+    }
+
+    private void cargarEstadoJornada() {
         new Thread(() -> {
             try {
                 MovimientoDao dao = DatabaseClient
@@ -85,10 +101,12 @@ public class FloatingChronometerFragment extends DialogFragment {
                         .getAppDatabase()
                         .movimientosDao();
 
-                String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-
                 Movimiento existente = dao.obtenerMovimientoConInicio(fechaSeleccionada);
                 if (existente != null && existente.getHoraInicio() != null) {
+                    Log.d("DEBUG_JORNADA", "fechaHoraCompleta guardada: " + existente.getFechaHoraCompleta());
+                    Log.d("DEBUG_JORNADA", "horaInicio guardada: " + existente.getHoraInicio());
+                    Log.d("DEBUG_JORNADA", "horaFin guardada: " + existente.getHoraFin());
+                    Log.d("DEBUG_JORNADA", "horaTotal guardada: " + existente.getHoraTotal());
                     requireActivity().runOnUiThread(() -> {
                         initTime.setText("Hora Inicio: \n " + existente.getHoraInicio());
 
@@ -97,26 +115,30 @@ public class FloatingChronometerFragment extends DialogFragment {
                             finishTime.setText("Hora Fin: \n " + existente.getHoraFin());
                             totalTime.setText("Total: \n" + existente.getHoraTotal());
                             chronometerView.setText("Finalizado");
+                            isRunning = false;
                         } else {
-                            // Jornada en curso, iniciar cronómetro
+                            // Jornada en curso, iniciar cronómetro calculando tiempo transcurrido
                             try {
-                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-                                Date horaInicioTime = timeFormat.parse(existente.getHoraInicio());
+                                // Parsear fechaHoraCompleta con zona horaria local
+                                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                dateTimeFormat.setTimeZone(TimeZone.getDefault()); // Zona local
 
-                                Calendar now = Calendar.getInstance();
-                                Calendar inicioCal = Calendar.getInstance();
-                                inicioCal.setTime(horaInicioTime);
-                                inicioCal.set(Calendar.YEAR, now.get(Calendar.YEAR));
-                                inicioCal.set(Calendar.MONTH, now.get(Calendar.MONTH));
-                                inicioCal.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+                                Date inicioCompleto = dateTimeFormat.parse(existente.getFechaHoraCompleta());
 
-// Si el tiempo de inicio está en el futuro (ej: ayer a las 23:00 y ahora son las 00:30)
-                                if (inicioCal.after(now)) {
-                                    inicioCal.add(Calendar.DAY_OF_MONTH, -1);
+                                // Obtener la hora actual también en zona local
+                                Calendar now = Calendar.getInstance(TimeZone.getDefault());
+                                long nowMillis = now.getTimeInMillis();
+                                long inicioMillis = inicioCompleto.getTime();
+
+                                Log.d("DEBUG_JORNADA", "Hora actual (ms): " + nowMillis + " (" + new Date(nowMillis).toString() + ")");
+                                Log.d("DEBUG_JORNADA", "Hora inicio (ms): " + inicioMillis + " (" + inicioCompleto.toString() + ")");
+                                long tiempoTranscurrido = nowMillis - inicioMillis;
+                                Log.d("DEBUG_JORNADA", "Diferencia ms: " + tiempoTranscurrido);
+
+                                if (tiempoTranscurrido < 0) {
+                                    Log.w("DEBUG_JORNADA", "Tiempo transcurrido negativo, ajustando sumando 1 día");
+                                    tiempoTranscurrido += 24 * 60 * 60 * 1000;
                                 }
-
-                                long tiempoTranscurrido = now.getTimeInMillis() - inicioCal.getTimeInMillis();
-
 
                                 startTime = System.currentTimeMillis() - tiempoTranscurrido;
                                 handler.post(runnable);
@@ -125,22 +147,30 @@ public class FloatingChronometerFragment extends DialogFragment {
                             } catch (Exception e) {
                                 Log.e("PARSING_TIME", "Error al calcular tiempo transcurrido", e);
                             }
+
+
                         }
+                    });
+                } else {
+                    requireActivity().runOnUiThread(() -> {
+                        // No hay jornada iniciada
+                        initTime.setText("Hora Inicio: \n 00:00:00");
+                        finishTime.setText("Hora Fin: \n 00:00:00");
+                        totalTime.setText("Total: \n 00:00:00");
+                        chronometerView.setText("No iniciado");
+                        isRunning = false;
                     });
                 }
             } catch (Exception e) {
                 Log.e("DB_ERROR", "Error al cargar datos de jornada", e);
             }
         }).start();
-
-
-        return view;
     }
 
     private void reiniciarJornadas() {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Reiniciar jornadas")
-                .setMessage("¿Estás seguro de que quieres Reiniciar esta Jornada?")
+                .setMessage("¿Estás seguro de que quieres reiniciar esta jornada?")
                 .setPositiveButton("Sí", (dialog, which) -> ejecutarReinicio())
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -160,7 +190,10 @@ public class FloatingChronometerFragment extends DialogFragment {
                     initTime.setText("Hora Inicio: \n 00:00:00");
                     finishTime.setText("Hora Fin: \n 00:00:00");
                     totalTime.setText("Total: \n 00:00:00");
+                    chronometerView.setText("No iniciado");
                     Toast.makeText(requireContext(), "Jornadas reiniciadas correctamente", Toast.LENGTH_SHORT).show();
+                    isRunning = false;
+                    handler.removeCallbacks(runnable);
                 });
 
             } catch (Exception e) {
@@ -171,8 +204,6 @@ public class FloatingChronometerFragment extends DialogFragment {
             }
         }).start();
     }
-
-
 
     private void iniciarJornada() {
 
@@ -188,26 +219,34 @@ public class FloatingChronometerFragment extends DialogFragment {
                         .getAppDatabase()
                         .movimientosDao();
 
-                String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
                 String fechaHoraCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                // Verificar si ya hay jornada iniciada
                 Movimiento existente = dao.obtenerMovimientoConInicio(fechaSeleccionada);
-                if (existente != null && existente.getHoraInicio() != null) {
-                    requireActivity().runOnUiThread(() ->
-                            Toast.makeText(requireContext(), "Ya has iniciado una jornada hoy", Toast.LENGTH_SHORT).show()
-                    );
-                    return;
-                }
 
-                Movimiento movimiento = new Movimiento();
-                movimiento.setFecha(fechaSeleccionada);
-                movimiento.setHoraInicio(currentTime);
-                movimiento.setValor(0.00);
-                movimiento.setTipo("Inicio Jornada");
-                movimiento.setFechaHoraCompleta(fechaHoraCompleta);
-                dao.insert(movimiento);
+                if (existente != null) {
+                    if (existente.getHoraInicio() != null && existente.getFechaHoraCompleta() != null) {
+                        // Ya hay jornada iniciada correctamente
+                        requireActivity().runOnUiThread(() ->
+                                Toast.makeText(requireContext(), "Ya has iniciado una jornada hoy", Toast.LENGTH_SHORT).show()
+                        );
+                        return;
+                    } else {
+                        // Jornada incompleta, actualizar registro existente
+                        existente.setHoraInicio(currentTime);
+                        existente.setFechaHoraCompleta(fechaHoraCompleta);
+                        dao.update(existente);
+                    }
+                } else {
+                    // No existe jornada, crear nueva
+                    Movimiento movimiento = new Movimiento();
+                    movimiento.setFecha(fechaSeleccionada);
+                    movimiento.setHoraInicio(currentTime);
+                    movimiento.setValor(0.00);
+                    movimiento.setTipo("Inicio Jornada");
+                    movimiento.setFechaHoraCompleta(fechaHoraCompleta);
+                    dao.insert(movimiento);
+                }
 
                 requireActivity().runOnUiThread(() -> {
                     Toast.makeText(requireContext(), "Jornada iniciada", Toast.LENGTH_SHORT).show();
@@ -239,11 +278,9 @@ public class FloatingChronometerFragment extends DialogFragment {
                         .getAppDatabase()
                         .movimientosDao();
 
-                String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
                 String fechaHoraCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                // Obtener el movimiento con tipo = "Inicio Jornada"
                 Movimiento movimiento = dao.obtenerMovimientoConInicio(fechaSeleccionada);
 
                 if (movimiento != null) {
@@ -253,7 +290,7 @@ public class FloatingChronometerFragment extends DialogFragment {
                     String tiempoTotal = chronometerView.getText().toString();
                     movimiento.setHoraTotal(tiempoTotal);
 
-                    dao.update(movimiento);  // Actualizar en lugar de insertar
+                    dao.update(movimiento);
 
                     requireActivity().runOnUiThread(() -> {
                         Toast.makeText(requireContext(), "Jornada finalizada", Toast.LENGTH_SHORT).show();
@@ -287,13 +324,11 @@ public class FloatingChronometerFragment extends DialogFragment {
                 Movimiento movimiento = dao.obtenerMovimientoConInicio(fechaSeleccionada);
                 List<Movimiento> list = dao.getall();
 
-
                 for (Movimiento m : list) {
                     Log.d("BD_MOVIMIENTO", m.toString());
                 }
 
                 if (movimiento != null && movimiento.getHoraFin() != null) {
-                    // Ya fue finalizado por el Worker
                     requireActivity().runOnUiThread(() -> {
                         handler.removeCallbacks(runnable);
                         isRunning = false;
@@ -312,9 +347,6 @@ public class FloatingChronometerFragment extends DialogFragment {
 
     }
 
-
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -326,13 +358,7 @@ public class FloatingChronometerFragment extends DialogFragment {
         super.onStart();
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
         }
-    }
-
-    private String getCurrentTimeString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        return sdf.format(new Date());
     }
 
     private String formatElapsedTime(long millis) {

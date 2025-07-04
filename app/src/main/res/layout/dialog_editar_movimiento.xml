@@ -36,37 +36,37 @@
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/servicio_taxi"
+                android:id="@+id/servicio_tipo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Taxi"
+                android:text="Tipo1"
                 android:textSize="16sp" />
 
             <RadioButton
-                android:id="@+id/servicio_radio_taxi"
+                android:id="@+id/servicio_tipo2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Radio Taxi"
+                android:text="Tipo2"
                 android:textSize="16sp" />
 
             <RadioButton
-                android:id="@+id/servicio_uber"
+                android:id="@+id/servicio_tipo3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Uber"
+                android:text="Tipo3"
                 android:textSize="16sp" />
 
             <RadioButton
-                android:id="@+id/servicio_bolt"
+                android:id="@+id/servicio_tipo4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bolt"
+                android:text="Tipo4"
                 android:textSize="16sp" />
             <RadioButton
-                android:id="@+id/servicio_cabify"
+                android:id="@+id/servicio_tipo5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cabify"
+                android:text="Tipo5"
                 android:textSize="16sp" />
         </RadioGroup>
 
@@ -81,28 +81,28 @@
                 android:id="@+id/rbTarjeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tarjeta"
+                android:text="Metodo1"
                 android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rbEfectivo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Efectivo"
+                android:text="Metodo2"
                 android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rbAbonados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abonado"
+                android:text="Metodo3"
                 android:textSize="16sp" />
 
             <RadioButton
-                android:id="@+id/rbRetorno"
+                android:id="@+id/rbpago_metodo4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Retorno"
+                android:text="Metodo4"
                 android:textSize="16sp" />
         </RadioGroup>
 

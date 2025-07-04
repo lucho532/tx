@@ -135,17 +135,17 @@ class SecondFragment : Fragment() {
         val radioGroupTipo = dialogView.findViewById<RadioGroup>(R.id.radioGroupTipo)
         etNuevoValor.setText(movimiento.valor.toString())
         when (movimiento.tipo) {
-            "Taxi" -> radioGroupTipo.check(R.id.servicio_taxi)
-            "Radio Taxi" -> radioGroupTipo.check(R.id.servicio_radio_taxi)
-            "Uber" -> radioGroupTipo.check(R.id.servicio_uber)
-            "Bolt" -> radioGroupTipo.check(R.id.servicio_bolt)
-            "Cabify" -> radioGroupTipo.check(R.id.servicio_cabify)
+            "Tipo1" -> radioGroupTipo.check(R.id.servicio_tipo1)
+            "Tipo2" -> radioGroupTipo.check(R.id.servicio_tipo2)
+            "Tipo3" -> radioGroupTipo.check(R.id.servicio_tipo3)
+            "Tipo4" -> radioGroupTipo.check(R.id.servicio_tipo4)
+            "Tipo5" -> radioGroupTipo.check(R.id.servicio_tipo5)
         }
         when (movimiento.metodoDePago) {
-            "Tarjeta" -> radioGroupMetodo.check(R.id.rbTarjeta)
+            "Metodo1" -> radioGroupMetodo.check(R.id.rbTarjeta)
             "Abonados" -> radioGroupMetodo.check(R.id.rbAbonados)
-            "Efectivo" -> radioGroupMetodo.check(R.id.rbEfectivo)
-            "Retorno" -> radioGroupMetodo.check(R.id.rbRetorno)
+            "Metodo2" -> radioGroupMetodo.check(R.id.rbEfectivo)
+            "Metodo4" -> radioGroupMetodo.check(R.id.rbpago_metodo4)
         }
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -154,18 +154,18 @@ class SecondFragment : Fragment() {
             .setPositiveButton("Guardar") { _, _ ->
                 val nuevoValor = etNuevoValor.text.toString().toDoubleOrNull()
                 val tipoSeleccionado= when(radioGroupTipo.checkedRadioButtonId){
-                    R.id.servicio_taxi -> "Taxi"
-                    R.id.servicio_radio_taxi -> "Radio Taxi"
-                    R.id.servicio_uber -> "Uber"
-                    R.id.servicio_bolt -> "Bolt"
-                    R.id.servicio_cabify -> "Cabify"
+                    R.id.servicio_tipo1 -> "Tipo1"
+                    R.id.servicio_tipo2 -> "Tipo2"
+                    R.id.servicio_tipo3 -> "Tipo3"
+                    R.id.servicio_tipo4 -> "Tipo4"
+                    R.id.servicio_tipo5 -> "Tipo5"
                     else -> null
                 }
                 val metodoPagoSeleccionado = when (radioGroupMetodo.checkedRadioButtonId) {
-                    R.id.rbTarjeta -> "Tarjeta"
+                    R.id.rbTarjeta -> "Metodo1"
                     R.id.rbAbonados -> "Abonados"
-                    R.id.rbEfectivo -> "Efectivo"
-                    R.id.rbRetorno -> "Retorno"
+                    R.id.rbEfectivo -> "Metodo2"
+                    R.id.rbpago_metodo4 -> "Metodo4"
                     else -> null
                 }
 

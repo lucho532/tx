@@ -45,7 +45,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Radio Taxi +" />
+                        android:text="Emisora +" />
                 </LinearLayout>
 
                 <!-- Fila 2 -->
@@ -96,10 +96,11 @@
                     android:stretchColumns="1">
 
                     <TextView
+                        android:id="@+id/containerTipo1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
-                        android:text="Taxi"
+                        android:text="Tipo1"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -208,6 +209,39 @@
                             android:text="0,00"
                             android:textColor="@android:color/black" />
                     </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📱App"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo1diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo1semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo1mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
 
                     <!-- Fila: Total -->
                     <TableRow>
@@ -269,10 +303,11 @@
                     android:stretchColumns="1">
 
                     <TextView
+                        android:id="@+id/containerTipo2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
-                        android:text="Radio Taxi"
+                        android:text="Tipo2"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -387,7 +422,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:padding="8dp"
-                            android:text="📞Abona"
+                            android:text="📱App"
                             android:textColor="@android:color/black" />
 
                         <TextView
@@ -415,39 +450,6 @@
                             android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="❌Retorno"
-                            android:textColor="@android:color/black" />
-
-                        <TextView
-                            android:id="@+id/radiotaxi_retorno_info_diario"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="0,00"
-                            android:textColor="@android:color/black" />
-
-                        <TextView
-                            android:id="@+id/radiotaxi_retorno_info_semanal"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="0,00"
-                            android:textColor="@android:color/black" />
-
-                        <TextView
-                            android:id="@+id/radiotaxi_retorno_info_mensual"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:padding="8dp"
-                            android:text="0,00"
-                            android:textColor="@android:color/black" />
-                    </TableRow>
 
                     <TableRow>
 
@@ -505,10 +507,11 @@
                     android:stretchColumns="1">
 
                     <TextView
+                        android:id="@+id/containerTipo3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
-                        android:text="Uber"
+                        android:text="Tipo3"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -616,6 +619,39 @@
                             android:text="0,00"
                             android:textColor="@android:color/black" />
                     </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📱App"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo3diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo3semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo3mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
 
                     <TableRow>
 
@@ -673,10 +709,11 @@
                     android:stretchColumns="1">
 
                     <TextView
+                        android:id="@+id/containerTipo4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
-                        android:text="Bolt"
+                        android:text="Tipo4"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -784,6 +821,39 @@
                             android:text="0,00"
                             android:textColor="@android:color/black" />
                     </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📱App"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo4diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo4semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo4mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
 
                     <TableRow>
 
@@ -842,10 +912,11 @@
                     android:stretchColumns="1">
 
                     <TextView
+                        android:id="@+id/containerTipo5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="16dp"
-                        android:text="Cabify"
+                        android:text="Tipo5"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -947,6 +1018,39 @@
 
                         <TextView
                             android:id="@+id/cabify_efectivo_info_mensual"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="📱App"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo5diario"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo5semanal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:text="0,00"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tipo5mensual"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:padding="8dp"
@@ -1128,7 +1232,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:padding="8dp"
-                            android:text="📞Abona"
+                            android:text="📱App"
                             android:textColor="@android:color/black" />
 
                         <TextView
